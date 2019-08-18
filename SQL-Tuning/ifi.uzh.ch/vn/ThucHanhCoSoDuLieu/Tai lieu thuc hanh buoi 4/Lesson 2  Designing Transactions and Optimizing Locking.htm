@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://technet.microsoft.com/en-us/library/cc546505.aspx -->
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml"><meta style="visibility: hidden !important; display: block !important; width: 0px !important; height: 0px !important; border-style: none !important;"><embed id="__IDM__" type="application/x-idm-downloader" width="1" height="1" style="visibility: hidden !important; display: block !important; width: 1px !important; height: 1px !important; border-style: none !important; position: absolute !important; top: 0px !important; left: 0px !important;"></meta><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="canonical" href="./Lesson 2  Designing Transactions and Optimizing Locking_files/Lesson 2  Designing Transactions and Optimizing Locking.htm">
+        <title>Lesson 2: Designing Transactions and Optimizing Locking</title>
+
+
+
+
+<meta name="DCS.dcsuri" content="/en-us/library/cc546505(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="NormalizedUrl" content="http://technet.microsoft.com/en-us/library/cc546505(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="VotingContextUrl" content="http://technet.microsoft.com/en-us/library/cc546505(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="MN" content="EE4293C2-12:03:26 PM">
+
+<meta name="Search.ShortId" content="cc546505">
+
+<meta name="Ms.Locale" content="en-us">
+
+
+
+
+
+
+
+
+        
+    <link rel="stylesheet" type="text/css" href="./Lesson 2  Designing Transactions and Optimizing Locking_files/Combined.css"><script type="text/javascript" async="" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ms2.js"></script><script class="mtps-injected">try {
+/**/
+(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { 
+	"image": "http://i.technet.microsoft.com", 
+	"js": "http://i2.technet.microsoft.com", 
+	"css": "http://i3.technet.microsoft.com"
+});
+/**/
+} finally { MTPS._injectNextScript_0 && MTPS._injectNextScript_0(); }</script><script class="mtps-injected" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/jquery-1.8.2.min.js"></script><script class="mtps-injected">try {
+//
+  var literalNormalizedUrl = '/en-us/library/cc546505(d=default,l=en-us,v=technet.10).aspx';
+  var wt_nvr_ru = 'WT_NVR_RU';
+  var wt_fpcdom = '.microsoft.com';
+  var wt_domlist = 'technet.microsoft.com';
+  var wt_pathlist = '/technet/';
+  var wt_paramlist = 'DCSext.mtps_techcenter';
+  var wt_siteid = 'TECHNET';
+  var gDomain = 'm.webtrends.com';
+  var gDcsId = 'dcsjwb9vb00000c932fd0rjc7_5p3t';
+  var gFpc = 'WT_FPC';
+
+
+
+  if (document.cookie.indexOf(gFpc + "=") == -1) {
+    var wtidJs = document.createElement("script");
+    wtidJs.src = "//" + gDomain + "/" + gDcsId + "/wtid.js";
+    document.getElementsByTagName("head")[0].appendChild(wtidJs);
+  }
+
+
+
+  var detectedLocale = 'en-us';
+  var wtsp = '_technet_library_mspress';
+  var gTrackEvents = '0';
+/**/
+} finally { MTPS._injectNextScript_2 && MTPS._injectNextScript_2(); }</script><script class="mtps-injected">try {
+/**/
+  var omni_guid = "6979afe7-8517-4fbb-a01b-95ea648acec4";
+/**/
+} finally { MTPS._injectNextScript_3 && MTPS._injectNextScript_3(); }</script><script class="mtps-injected" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/Combined.js"></script><script class="mtps-injected">try {
+var omnitureTracking = true;
+} finally { MTPS._injectNextScript_5 && MTPS._injectNextScript_5(); }</script><script class="mtps-injected" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/Combined(1).js"></script><script class="mtps-injected" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/SearchBox.jss"></script><script class="mtps-injected" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/Combined(2).js"></script><script src="./Lesson 2  Designing Transactions and Optimizing Locking_files/broker.js"></script><script class="mtps-injected">try {
+$(document).ready(function() {
+        try {
+            var token = $("#globalRequestVerification input[name='__RequestVerificationToken']").clone();
+            $("#siteFeedbackForm").append(token);
+        } catch(err) {
+            
+        }
+    });
+} finally { MTPS._injectNextScript_9 && MTPS._injectNextScript_9(); }</script><link type="text/css" rel="stylesheet" href="./Lesson 2  Designing Transactions and Optimizing Locking_files/PrintView.css" media="print"></head>
+    <body class="library">
+        <div id="page">
+            
+            
+  
+            
+        <link type="text/css" rel="stylesheet" href="./Lesson 2  Designing Transactions and Optimizing Locking_files/Megablade.1.css" data-do-not-move="true">
+    <div id="megabladeContainer" style="">
+        <div id="megabladeContainerCenter">
+            <ul id="megabladeItems">
+                <li class="Logo"><a href="http://technet.microsoft.com/" title="TechNet">TechNet</a></li>
+                        <li data-value="hh326172" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Products</a><span class="caret"></span></li>
+                        <li data-value="hh880860" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">IT Resources</a><span class="caret"></span></li>
+                        <li data-value="hh371326" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Downloads</a><span class="caret"></span></li>
+                        <li data-value="jj837158" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Training</a><span class="caret"></span></li>
+                        <li data-value="hh371327" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Support</a><span class="caret"></span></li>
+            </ul>
+            <div class="bladeItemMenuContainer">
+                    <div data-value="hh326172" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Products">
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/windows">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:0;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/windows">Windows</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/windowsserver">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-389px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/windowsserver">Windows<br>Server</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/systemcenter">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-250px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/systemcenter">System<br>Center</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/ie">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-300px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/ie">Internet<br>Explorer</a>
+      </li>
+    </ul>
+    <ul id="">
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/office">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-102px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/office">Office</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/office365">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-102px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/office365">Office 365</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/exchange">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-50px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/exchange">Exchange<br>Server</a>
+      </li>
+    </ul>
+    <ul>
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/sql">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-200px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/sql">SQL Server</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/sharepoint">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-153px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/sharepoint">SharePoint<br>Products</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/lync">
+          <img alt="" height="470" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-428px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/lync">Lync</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/en-us/bb421517.aspx?wt.svl=more_centers_link">See all products »</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh880860" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Resources">
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157772">Evaluation Center</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/bb291022">Learning Resources</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157773">Microsoft IT Camps</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157774">Microsoft Virtual Academy</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/scriptcenter">Script Center</a>
+      </li>
+      <li>
+        <a href="http://blogs.technet.com/serverandtools">Server and Tools Blogs</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/solutionaccelerators">Solution Accelerators</a>
+      </li>
+      <li>
+        <a href="http://blogs.technet.com/">TechNet Blogs</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="http://technet.microsoft.com/cc543196">TechNet Flash Newsletter</a>
+      </li>
+      <li>
+        <a href="http://gallery.technet.microsoft.com/">TechNet Gallery</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/library/default.aspx">TechNet Library</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/magazine">TechNet Magazine</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/subscriptions">TechNet Subscriptions</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/video">TechNet Video</a>
+      </li>
+      <li>
+        <a href="http://social.technet.microsoft.com/wiki">TechNet Wiki</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/sysinternals">Windows Sysinternals</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/virtuallabs">Virtual Labs</a>
+      </li>
+    </ul>
+    <ul id="Solutions">
+      <li>
+        <a href="http://technet.microsoft.com/network">Networking</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/cloud/private-cloud">Private Cloud</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/security">Security</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/virtualization">Virtualization</a>
+      </li>
+    </ul>
+    <p>&nbsp;</p>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh371326" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Updates">
+      <li>
+        <a href="http://support.microsoft.com/default.aspx?id=fh;en-us;sp&fr=0&sd=gn&ln=en-us&ct=sd&se=nona">Service Packs</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/security/bulletin">Security Bulletins</a>
+      </li>
+      <li>
+        <a href="http://fe1.update.microsoft.com/microsoftupdate/v6/vistadefault.aspx?ln=en-US">Microsoft Update</a>
+      </li>
+    </ul>
+    <ul id="Trials">
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200127473">Windows Server 2012</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200138112">System Center 2012 SP1</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200156426">Microsoft SQL Server 2012 SP1</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200138107">Windows 8 Enterprise</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157775" title="See all trials">See all trials »</a>
+      </li>
+    </ul>
+    <ul id="Related Sites">
+      <li>
+        <a href="http://www.microsoft.com/downloads/search.aspx">Microsoft Download Center</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157776">TechNet Evaluation Center</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/download/driver.aspx?q=driver">Drivers</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/download/compatibility.aspx?q=compatibility">Compatability &amp; Converters</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/sysinternals">Windows Sysinternals</a>
+      </li>
+      <li>
+        <a href="http://gallery.technet.microsoft.com/">TechNet Gallery</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="jj837158" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Training">
+      <li>
+        <a href="http://learning.microsoft.com/Manager/BrowseCatalog.aspx?browse=PT">Training Catalog</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/classlocator.aspx">Class Locator</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155695">Microsoft Virtual Academy</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155696">Free Windows Server 2012 courses</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155697" title="Free Windows 8 courses">Free Windows 8 courses</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/training/sql-server.aspx">SQL Server training</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/training/format-online.aspx">e-Learning overview</a>
+      </li>
+    </ul>
+    <ul id="Certifications">
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-overview.aspx">Certification overview</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/windows-certification.aspx" title="MCSA: Windows 8 ">MCSA: Windows 8</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-windowsserver.aspx">Windows Server Certification (MCSE)</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-private-cloud.aspx">Private Cloud Certification (MCSE)</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-sql-server.aspx">SQL Server Certification (MCSE)</a>
+      </li>
+    </ul>
+    <ul id="Other resources">
+      <li>
+        <a href="http://www.technetevents.com/">TechNet Events</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/offers/secondshot.aspx">Second shot for certification</a>
+      </li>
+      <li>
+        <a href="http://borntolearn.mslearn.net/btl/b/default.aspx">Born To Learn blog</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155694">IT Camps</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh371327" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div id="">
+    <ul id="Support by product">
+      <li>
+        <a href="http://support.microsoft.com/ph/730">Exchange Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/13029">Forefront Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/815">Forefront Edge Security</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/14783/sl">Forefront Server Security</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/807">Internet Explorer</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/8753">Office</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/935/en-us">SharePoint</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="http://support.microsoft.com/ph/1044">SQL Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/16340/en-us">System Center</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/1163">Windows Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/1173">Windows XP</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/11732">Windows Vista</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/14019">Windows 7</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/find-solutions/windows/windows-8/">Windows 8</a>
+      </li>
+    </ul>
+    <ul id="Other support links">
+      <li>
+        <a href="https://premier.microsoft.com/">Microsoft Premier Online</a>
+      </li>
+      <li>
+        <a href="http://fixitcenter.support.microsoft.com/Portal">Microsoft Fix It Center</a>
+      </li>
+      <li>
+        <a href="http://social.technet.microsoft.com/Forums/en-us/categories/">TechNet Forums</a>
+      </li>
+      <li>
+        <a href="http://social.msdn.microsoft.com/Forums/en-US/categories/">MSDN Forums</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/en-us/security/bulletin">Security Bulletins &amp; Advisories</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/common/international.aspx">International support solutions</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/select/default.aspx?target=assistance">Log a support ticket</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/technet/support/ee/ee_advanced.aspx">Look up event IDs and error codes</a>
+      </li>
+    </ul>
+    <ul id="Not an IT pro?">
+      <li>
+        <a href="http://support.microsoft.com/">Microsoft Customer Support</a>
+      </li>
+      <li>
+        <a href="http://answers.microsoft.com/en-us">Microsoft Community Forums</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div id="ux-header" class="Chrome ltr ">
+        <div class="upperBand">
+            <a href="http://technet.microsoft.com/" title="Microsoft TechNet"><img alt="Microsoft TechNet" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/BrandLogoTechNet.png"></a>               
+            <div class="upperRight">
+                <div class="controls">
+                    
+<a title="Change your language" id="SelectLocale" href="http://technet.microsoft.com/en-us/SelectLocale?fromPage=http%3a%2f%2ftechnet.microsoft.com%2fen-us%2flibrary%2fcc546505.aspx">United States (English)</a>
+        
+            
+            
+                    
+<a class="scarabLink" href="https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct=1366139006&rver=6.0.5276.0&wp=MCLBI&wlcxt=TechNet%24TechNet%24TechNet&wreply=http%3a%2f%2ftechnet.microsoft.com%2fen-us%2flibrary%2fcc546505.aspx&lc=1033&id=254354&mkt=en-US" title="Sign in">Sign in</a>
+                </div>
+                
+
+    
+
+<div class="SearchBox">
+              <form id="HeaderSearchForm" name="HeaderSearchForm" method="get" action="http://social.technet.microsoft.com/Search" onsubmit="return Epx.Controls.SearchBox.searchBoxOnSubmit(this, this.title);">
+            <input id="HeaderSearchTextBox" name="query" type="text" maxlength="200" onfocus="Epx.Controls.SearchBox.watermarkFocus(this, this.title, &#39;TextBoxSearch&#39;)" onblur="Epx.Controls.SearchBox.watermarkBlur(this, this.title, &#39;TextBoxSearch&#39;)" autocomplete="off" title="Search TechNet with Bing" style="color: rgb(170, 170, 170); font-style: italic;">
+            <input id="RefinementId" name="refinement" type="hidden" value="">
+            <button id="HeaderSearchButton" value="" type="submit" class="header-search-button" title="Search TechNet with Bing"></button>
+        <div id="SearchFlyoutContainer" style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; background-color: rgb(255, 255, 255); color: rgb(153, 153, 153); font-family: &#39;Segoe UI&#39;, &#39;Lucida Grande&#39;, Verdana, Arial, Helvetica, sans-serif; font-size: 14px;"><div id="SuggestionContainer"><ul style="list-style: none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></form>
+        
+    
+</div>
+
+            </div>
+        </div>
+        <div class="lowerBand">
+            <div class="ux-nav">
+                    <div class="menus">
+                        <a id="isd_print" href="http://technet.microsoft.com/en-us/library/cc546505(d=printer).aspx" title="Print/Export" rel="nofollow">
+                            <div class="clip38x23">
+                                <img src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ImageSprite.png" alt="" class="isd_print_arrow">
+                            </div>
+                        </a>
+                        <div id="isd_print_menu" class="isd_menu">
+                            <a href="http://technet.microsoft.com/en-us/library/cc546505(d=printer).aspx">Print This Topic</a>
+                            <a href="http://technet.microsoft.com/en-us/library/export/help/?returnUrl=%2fen-us%2flibrary%2fcc546505.aspx">Print Multiple Topics</a>
+                        </div>
+                    </div>
+                <div class="TocNavigation">
+   
+   <div class="toclevel1">
+          <a class="normal" href="http://technet.microsoft.com/" title="Home">Home</a>
+          <a class="active" href="http://technet.microsoft.com/library/default.aspx" title="Library">Library</a>
+          <a class="normal" href="http://social.technet.microsoft.com/wiki" title="Wiki">Wiki</a>
+          <a class="normal" href="http://technet.microsoft.com/bb291022" title="Learn">Learn</a>
+          <a class="normal" href="http://gallery.technet.microsoft.com/" title="Gallery">Gallery</a>
+          <a class="normal" href="http://technet.microsoft.com/bb403698" title="Downloads">Downloads</a>
+          <a class="normal" href="http://technet.microsoft.com/ms772425" title="Support">Support</a>
+          <a class="normal" href="http://social.technet.microsoft.com/forums/categories/" title="Forums">Forums</a>
+          <a class="normal" href="http://blogs.technet.com/" title="Blogs">Blogs</a>
+
+    </div>
+  
+</div>
+            </div>
+        </div>
+    </div>
+
+    
+
+        
+            <div id="body">
+                
+
+
+
+
+
+
+
+<div id="leftNav" class="leftNavResize1">
+
+
+
+<div id="tocnav">
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/aa991542.aspx" id="bb126093_TechNet.10_en-us" title="TechNet Library">TechNet Library</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc498713.aspx" id="cc440484_TechNet.10_en-us" title="Books, Magazines, and Columns">Books, Magazines, and Columns</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc268257.aspx" id="cc268257_TechNet.10_en-us" title="Microsoft Press Books">Microsoft Press Books</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc268268.aspx" id="cc268268_TechNet.10_en-us" title="SQL Server">SQL Server</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc293962.aspx" id="cc293962_TechNet.10_en-us" title="SQL Server 2005">SQL Server 2005</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc546503.aspx" id="jj871078_TechNet.10_en-us" title="MCITP Self-Paced Training Kit (Exam 70-442): Designing and Optimizing Data Access by Using Microsoft® SQL Server™ 2005">MCITP Self-Paced Training Kit (Exam 70-442): Designing and Optimizing Data Access by Using Microsoft® SQL Server™ 2005</a>            </div>
+            <div class="toclevel1" data-toclevel="1" style="padding-left: 17px;" data-childrenloaded="true">
+<a class="toc_expanded" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc546509.aspx" id="jj871080_TechNet.10_en-us" title="Chapter 6: Designing Transactions and Transaction Isolation">Chapter 6: Designing Transactions and Transaction Isolation</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546514.aspx" title="Before You Begin">Before You Begin</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546518.aspx" title="Lesson 1: Understanding the Available Transaction Isolation Levels">Lesson 1: Understanding the Available Transaction Isolation Levels</a>            </div>
+            <div class="toclevel2 current" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="./Lesson 2  Designing Transactions and Optimizing Locking_files/Lesson 2  Designing Transactions and Optimizing Locking.htm" title="Lesson 2: Designing Transactions and Optimizing Locking">Lesson 2: Designing Transactions and Optimizing Locking</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546511.aspx" title="Case Scenario: Optimizing Locking">Case Scenario: Optimizing Locking</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546516.aspx" title="Suggested Practices">Suggested Practices</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546520.aspx" title="References">References</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546507.aspx" title="Chapter Summary">Chapter Summary</a>            </div>
+</div>    
+    
+    
+    
+    
+    
+    
+    
+
+<a id="NavigationResize" href="javascript:void(0)" style="left: 280px; display: inline-block;">
+    <img class="cl_nav_resize_open" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ImageSprite.png" title="Expand" alt="Expand" style="">
+    <img class="cl_nav_resize_close" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ImageSprite.png" title="Minimize" alt="Minimize" style="display: none;">
+</a>
+
+
+
+</div>
+<div id="content" class="content" style="margin-left: 280px; width: auto;">
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+    <div id="ratingCounterSeperator" class="cl_lw_vs_seperator" style="display: none;"></div>
+
+    
+
+        
+
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">Lesson 2: Designing Transactions and Optimizing Locking</h1><div id="ratingCounter" style="display: block;">
+        <span id="rcA" class="ratingText">
+            0 out of 1 rated this helpful <span id="rateThisPrefix">- </span><a id="rateThisTopic" href="http://technet.microsoft.com/en-us/library/cc546505.aspx#feedback" title="Rate this topic">Rate this topic</a>
+            
+        </span>
+    </div>
+  
+
+	
+
+    
+
+    
+
+    
+
+    <div id="hspagebody">
+        <div>
+<div class="msl_sidebar">
+<p>Estimated lesson time: 40 minutes</p></div><br><br>
+<p>Always try to design a solution that minimizes both the amount of resources locked in a transaction and the risk of blocking and deadlocks. This lesson covers both using table locking options and alternative ways of reducing and optimizing locking.</p>
+<h2>Optimizing Locking</h2>
+<p>In addition to using the correct transaction isolation level, you can take several other steps to reduce locking and still get the correct results in your transactions. You can use table locking hints by applying the <em>WITH(&lt;locking_hint&gt;)</em> keyword after the table name in a DML statement. In this way, you can use a stricter transaction isolation level (such as serializable) or a leaner isolation level (such as read uncommitted) for a specific table in a transaction. There are several table locking hints available; the following are the most commonly used:</p>
+<ul>
+<li><strong>WITH (READUNCOMMITTED / READCOMMITTED / REPEATABLEREAD / SERIALIZABLE)</strong> These hints specify an alternate isolation level to use for the specific table. Note that you cannot specify the snapshot isolation level as a table locking hint. 
+</li><li><strong>WITH (NOLOCK)</strong> This hint is equal to specifying READUNCOMMITTED; use READUNCOMMITTED. 
+</li><li><strong>WITH (HOLDLOCK)</strong> This hint is equal to specifying SERIALIZABLE, but use SERIALIZABLE. “Hold lock” sounds more like it should be translated to repeatable read; however, HOLDLOCK is translated to serializable because of the lack of row locks in SQL Server versions prior to 7.0. Because row locks were not available, HOLDLOCK could protect against phantom reads. Because of this backward-compatibility issue, HOLDLOCK is translated to serializable. 
+</li><li><strong>WITH (READPAST)</strong> READPAST causes SQL Server to skip locked rows instead of waiting for the locks to be released. In SQL Server 2005, READPAST is also available for UPDATE and DELETE statements. READPAST is usually used to mimic a queuing mechanism. If this is what is needed, consider implementing a SQL Server 2005 Service Broker solution instead. Service Broker natively provides queues and is implemented using T-SQL. A great book about SQL Server 2005 Service Broker is <em>The Rational Guide to SQL Server 2005 Service Broker</em> by Roger Wolter (Rational Press, 2006). 
+</li><li><strong>WITH (XLOCK)</strong> This hint is used in DML statements to cause SQL Server to acquire exclusive locks instead of shared locks. The exclusive locks acquired will be held for the remainder of the transaction. 
+</li><li><strong>WITH (UPDLOCK)</strong> This hint is used in DML statements to cause SQL Server to acquire update locks instead of shared locks. The update locks acquired will be held for the remainder of the transaction. Update locks are compatible with shared locks but are not compatible with other update locks. Therefore, SELECT statements that acquire update locks will be blocked, while SELECT statements that only intend to read the data, and not change it, are allowed. WITH (UPDLOCK) is usually specified if data is to be read first and updated later. Because of this, it can be referred to as a “SELECT WITH INTENT TO UPDATE”. 
+</li><li><strong>WITH (NOWAIT)</strong> This hint is equal to setting LOCK_TIMEOUT to 0. For example, SQL Server will return an error message and stop execution of the current statement if it encounters a lock that it would need to wait for—on the specific table!</li></ul>
+<p>For more information about table locking hints, see the SQL Server 2005 Books Online articles “Locking Hints” at  or “Table Hint (Transact-SQL)” at .</p>
+<div class="msl_sidebar">
+<p>
+</p><h4>Exam Tip</h4>For this exam, it is recommended that you know and understand the behaviors of the different locking hints. 
+<p></p></div><br><br>
+<p>In addition to using locking hints, the <em>OUTPUT</em> keyword for INSERT, UPDATE, and DELETE statements can also be very helpful. This keyword makes it possible to know which rows were accessed (inserted, updated, or deleted) by a specific DML statement. Following is an example of how concurrency problems can be solved without increased locking. The example is a simplified account-withdrawal transaction. (The lab for this lesson includes a more complex example that uses an account transactions table instead of just storing the account balance in a column of the accounts table.)</p>
+<p>Here’s an example of the implementation in pseudo code:</p>
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e72bae7b-20dc-4b31-bdbc-b1eb9341beac');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e72bae7b-20dc-4b31-bdbc-b1eb9341beac" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>If(Enough money in account)
+	Withdraw the money
+Else
+	Return an error message
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Here, this transaction is translated to T-SQL, and the test table used in the example is included.</p>
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_17ba8813-8865-4573-bccd-cd761de48c6e');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_17ba8813-8865-4573-bccd-cd761de48c6e" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+	,Balance DECIMAL(19,5) NOT NULL
+);
+GO
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED – Default...
+BEGIN TRAN;
+	IF EXISTS (SELECT * FROM Test.Accounts
+		   WHERE AccountNumber = @AccountNumber
+			 AND Balance &gt;= @AmountToWithdraw)
+	    UPDATE Test.Accounts SET
+		Balance = Balance - @AmountToWithdraw
+	    WHERE AccountNumber = @AccountNumber;
+	ELSE
+	    BEGIN
+		RAISERROR('Not enough funds in account!', 16, 1);
+		ROLLBACK TRAN;
+		RETURN;
+	    END
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>What is wrong with this transaction? There is one specific issue. There is a chance that the balance of the account will be updated between the execution of the SELECT statement and the execution of the UPDATE statement. This example shows the problem of two users (connections) trying to withdraw all the money in the account at the same time:</p>
+<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_c7184772-78d2-4ee6-ae98-dc7231732edf');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_c7184772-78d2-4ee6-ae98-dc7231732edf" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+	,Balance DECIMAL(19,5) NOT NULL
+);
+INSERT Test.Accounts (AccountNumber, Balance)
+	VALUES (1001, 500);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_10" alt="Cc546505.table_C06623835_10(en-us,TechNet.10).png" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/IC145291.png" title="Cc546505.table_C06623835_10(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-4" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_08c306d2-8c33-4528-87af-c514d53160d9');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_08c306d2-8c33-4528-87af-c514d53160d9" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>DROP TABLE Test.Accounts;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>In this case, it is possible to withdraw more money from the account than what was available because the shared lock issued by the SELECT statement is not held for the duration of the transaction. This enables the update in Connection 2 to withdraw money from the account even though the transaction in Connection 1 has not yet completed. To solve this problem, you can change the transaction isolation level to repeatable read, which will cause Connection 1 to keep its lock on the row for the entire transaction, as follows:</p>
+<div id="code-snippet-5" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_86470241-5eda-45a4-97df-5c7521f27caa');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_86470241-5eda-45a4-97df-5c7521f27caa" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+	,Balance DECIMAL(19,5) NOT NULL
+);
+INSERT Test.Accounts (AccountNumber, Balance)
+	VALUES (1001, 500);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_11" alt="Cc546505.table_C06623835_11(en-us,TechNet.10).png" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/IC135930.png" title="Cc546505.table_C06623835_11(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-6" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_6c4bd852-2f69-4d43-879a-dd53c0b45515');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_6c4bd852-2f69-4d43-879a-dd53c0b45515" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>DROP TABLE Test.Accounts;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>This solution solves the problem of two connections being able to overdraw the account if executed at the same time. However, it introduces a potential deadlock problem. Deadlocks seriously degrade performance and should be avoided if possible. Instead of using the repeatable read isolation level, you can use the UPDLOCK lock hint or XLOCK lock hint. If UPDLOCK is specified for the SELECT statement, only the first transaction would get the lock, because update locks are not compatible with other update locks. If UPDLOCK is used, it is important to use it wherever data is first read and then updated. If UPDLOCK is left out of some transactions, the solution won’t work because those transactions will acquire shared locks instead of update locks and could cause deadlocks to occur. If you are not sure whether you are using UPDLOCK in all instances in which it is needed, consider implementing the XLOCK hint, because exclusive locks are not compatible with shared locks. Here is the updated transaction using update locks:</p>
+<div id="code-snippet-7" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1c4acba4-5104-497c-9a65-83457b08aa45');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1c4acba4-5104-497c-9a65-83457b08aa45" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	IF EXISTS (SELECT * FROM Test.Accounts WITH (UPDLOCK)
+		   WHERE AccountNumber = @AccountNumber
+			 AND Balance &gt;= @AmountToWithdraw)
+	    UPDATE Test.Accounts SET
+		Balance = Balance - @AmountToWithdraw
+	    WHERE AccountNumber = @AccountNumber;
+	ELSE
+	    BEGIN
+		RAISERROR('Not enough funds in account!', 16, 1);
+		ROLLBACK TRAN;
+		RETURN;
+	    END
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>However, there is an even simpler and better-performing solution: skip the IF and SELECT statements. Instead, execute the UPDATE statement, include the balance check in the WHERE clause, and check whether the UPDATE statement updated the account by querying the <em>@@ROWCOUNT</em> function. When possible, executing fewer statements is usually a better solution. </p>
+<div id="code-snippet-8" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_990e8f9a-1257-444a-9023-2c845ed83de1');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_990e8f9a-1257-444a-9023-2c845ed83de1" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	UPDATE Test.Accounts SET
+		Balance = Balance - @AmountToWithdraw
+	WHERE AccountNumber = @AccountNumber
+		AND Balance &gt;= @AmountToWithdraw;
+	IF(@@ROWCOUNT &lt;&gt; 1)
+	BEGIN
+		RAISERROR('Not enough funds in account!', 16, 1);
+		ROLLBACK TRAN;
+	END
+ELSE
+	 COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>This solution is very useful but works only if there is one row to be updated. If more rows need to be updated, you need to use the OUTPUT clause. Typically, you would execute the UPDATE statement and then OUTPUT the accessed rows into a table variable. You can then query the table variable to find out which rows were updated. Below is a simple example of updating the price of products in a specific category, and then returning the average price for the products that were updated. To make sure that the SELECT statement that returns the average price does not return phantom rows, either the snapshot transaction isolation level or the serializable transaction isolation level would need to be used. In this case, the OUTPUT clause protects against phantom rows without added locking or use of row versions.</p>
+<div id="code-snippet-9" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_f7e4d751-18d6-401c-8e37-0cfa49b04700');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_f7e4d751-18d6-401c-8e37-0cfa49b04700" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE AdventureWorks;
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	DECLARE @tmp TABLE (ProductID INT PRIMARY KEY);
+	UPDATE Production.Product SET
+		ListPrice = ListPrice * 1.1
+	OUTPUT INSERTED.ProductID INTO @tmp (ProductID)
+	WHERE ProductSubcategoryID = 17;
+	SELECT AVG(p.ListPrice) AS NewAvgPrice
+	FROM Production.Product AS p
+	WHERE p.ProductID IN (
+		SELECT t.ProductID FROM @tmp AS t
+	);
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="msl_sidebar">
+<p>
+</p><h4>Exam Tip</h4>For this exam, knowledge of alternate solutions is important. 
+<p></p></div><br><br>
+<h2>Minimizing Deadlocks</h2>
+<p>To minimize deadlocks, you should follow three guidelines:</p>
+<ul>
+<li>Minimize the time during which transactions are open by keeping transactions short. 
+</li><li>Minimize locking. Use the least-restrictive transaction isolation level, and implement more-restrictive locking by using table locking hints rather than the SET TRANSACTION ISOLATION LEVEL. The table locking hint only affects one table, while the SET statement affects all tables in the transaction. 
+</li><li>Access tables in the same order in all transactions. This reduces the risk of deadlocks resulting from transactions crossing paths. Here is an example of two transactions that can potentially be deadlocked due to the tables not being accessed in the same order in each transaction. 
+<p class="tableimage"><img id="table_C06623835_12" alt="Cc546505.table_C06623835_12(en-us,TechNet.10).png" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/IC3544.png" title="Cc546505.table_C06623835_12(en-us,TechNet.10).png" xmlns=""></p></li></ul>
+<p>The typical solution for avoiding these types of deadlocks is to always access tables in the order parent to child, such as Customer to Order. What if you first need to read the order (child) and then update the customer (parent) based on the previous select? First, you can probably do this by executing an UPDATE statement with a subquery. If not, you can start by executing a dummy statement to lock the parent row. (To avoid firing triggers, use a SELECT statement, rather than an UPDATE statement, as the dummy statement.) For example:</p>
+<div id="code-snippet-10" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_b6bb6d92-a72f-46cf-a7a4-4bc2dbd07c8f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_b6bb6d92-a72f-46cf-a7a4-4bc2dbd07c8f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>DECLARE @x INT;
+BEGIN TRAN;
+	-- Lock parent row.
+	SET @x = (SELECT 1 FROM Customer WITH (XLOCK)
+		  WHERE CustomerID = @CustomerID)
+	-- Now access the child rows...
+...
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>Working with Distributed Transactions</h2>
+<p>Distributed transactions are needed when a transaction covers more than one resource manager. A SQL Server instance is a typical resource manager. When working with multiple resource managers, a transaction manager is used to manage the transaction. The transaction manager that is installed with Windows is the Distributed Transaction Coordinator (also known as MS DTC). </p>
+<h3>Server-Side Distributed Transactions in T-SQL</h3>
+<p>When T-SQL transactions contain write operations that affect both local and remote objects on linked servers, a distributed transaction is automatically started, and the Distributed Transaction Coordinator (DTC) service is engaged to manage the distributed transaction. If the DTC service is not started on all involved machines, an error message is thrown. A distributed transaction can also be manually started by executing the BEGIN DISTRIBUTED TRANSACTION statement. Note that the snapshot transaction isolation level is not supported for distributed transactions. </p>
+<h3>Application-Side Distributed Transactions in .NET Framework 2.0</h3>
+<p>When developing applications using .NET Framework 2.0, the <em>System.Transactions</em> namespace (which is found in the <em>System.Transactions.dll</em> assembly) can be used to manage transactions. If only one SQL Server instance is accessed in a transaction, <em>System.Transactions</em> uses a local SQL Server transaction. However, if more resource managers are included in the transaction, <em>System.Transactions</em> automatically promotes the local transaction to a distributed transaction and involves the MS DTC to manage the transaction. This means that <em>System.Transactions</em> is ideal to use for all transactions that you want to manage from the client side, even if they only involve one SQL Server instance. Following is an application sample implementation of <em>System.Transactions</em>:</p>
+<div id="code-snippet-11" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_6422621e-2ca7-4650-b817-ed45c1ad3eb0');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_6422621e-2ca7-4650-b817-ed45c1ad3eb0" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>//C#
+using System.Transactions;
+using System.Data.SqlClient;
+//Start a new transaction.
+using (TransactionScope tran = new TransactionScope())
+{
+	using (SqlConnection connSqlServer1 = new
+	       SqlConnection(connString1))
+	{
+		connSqlServer1.Open(); //Opens first connection.
+		//The transaction is now local to the first SQL Server
+		//instance.
+		using(SqlConnection connSqlServer2 = new
+		      SqlConnection(connString2))
+		{
+			connSqlServer2.Open(); // Opens second connection.
+			//The transaction is promoted to a distributed
+			//transaction.
+		}
+	}
+	//Commit the transaction.
+	tran.Complete();
+}
+'VB
+Imports System.Transactions
+Imports System.Data.SqlClient
+'Start a new transaction.
+Using tran As New TransactionScope()
+	Using connSqlServer1 As New SqlConnection(connString1)
+		connSqlServer1.Open() 'Opens first connection.
+		'The transaction is now local to the first SQL Server
+		'instance.
+		Using connSqlServer2 As New SqlConnection(connString2)
+			connSqlServer2.Open() 'Opens second connection.
+			'The transaction is promoted to a distributed
+			'transaction.
+		End Using
+	End Using
+	'Commit the transaction.
+	tran.Complete()
+End Using 
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>Lab: Designing Code That Uses Transactions</h2>
+<p>In this lab, you create a stored procedure that will be used to withdraw money from a bank account. The stored procedure should make sure that no concurrency problems occur and that the account cannot be overdrawn.</p>
+<div class="msl_sidebar">
+<p>
+</p><h4>IMPORTANT</h4><strong>Lab requirements</strong> You will need to have SQL Server 2005 and the Adventure Works database installed before you can complete this lab. Refer to the Introduction for setup instructions. 
+<p></p></div><br><br>
+<h4>Exercise 1: Use the Default Isolation Level</h4>
+<p>In this exercise, you create the draft for the stored procedure and use the read committed transaction isolation level. </p>
+<ol>
+<li>Open SQL Server Management Studio, and connect to an instance of SQL Server 2005. 
+</li><li>Open a new query window, and type and execute the following SQL statements. This will create the <em>TestDB</em> database, the Test schema, and the tables that are used in this exercise: you will also create the Test.spAccountReset stored procedure. You can execute this procedure to reset the data in the tables if you need to restart the exercise. 
+<div id="code-snippet-12" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_a948dfd5-24c7-49d3-8931-738cca602eba');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_a948dfd5-24c7-49d3-8931-738cca602eba" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE DATABASE TestDB;
+GO
+USE TestDB;
+GO
+CREATE SCHEMA Test;
+GO
+CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+);
+CREATE TABLE Test.AccountTransactions (
+	TransactionID INT IDENTITY PRIMARY KEY
+	,AccountNumber INT NOT NULL REFERENCES Test.Accounts
+	,CreatedDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	,Amount DECIMAL(19, 5) NOT NULL
+);
+GO
+CREATE PROC Test.spAccountReset
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DELETE Test.AccountTransactions;
+	DELETE Test.Accounts;
+	INSERT Test.Accounts (AccountNumber) VALUES (1001);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 100);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 500);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 1400);
+	SELECT AccountNumber, SUM(Amount) AS Balance
+	FROM Test.AccountTransactions
+	GROUP BY AccountNumber;
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, and type and execute the following SQL statements to create the Test.spAccountWithdraw stored procedure: 
+<div id="code-snippet-13" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_c2175ba6-6f09-46fe-997d-8ca28c3e7930');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_c2175ba6-6f09-46fe-997d-8ca28c3e7930" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE TestDB;
+GO
+CREATE PROC Test.spAccountWithdraw
+@AccountNumber INT
+,@AmountToWithdraw DECIMAL(19, 5)
+AS
+BEGIN
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+	BEGIN TRY
+		IF(@AmountToWithdraw &lt;= 0)
+			RAISERROR('@AmountToWithdraw must be &gt; 0.', 16, 1);
+		BEGIN TRAN;
+			-- Verify that the account exists...
+			IF NOT EXISTS(
+					SELECT *
+					FROM Test.Accounts
+					WHERE AccountNumber = @AccountNumber
+				)
+				RAISERROR('Account not found.', 16, 1);
+			-- Verify that the account will not be overdrawn...
+			IF (@AmountToWithdraw &gt; (
+					SELECT SUM(Amount)
+					FROM Test.AccountTransactions
+					WHERE AccountNumber = @AccountNumber)
+				)
+				RAISERROR('Not enough funds in account.', 16, 1);
+			-- ** USED TO TEST CONCURRENCY PROBLEMS **
+			RAISERROR('Pausing procedure for 10 seconds...', 10, 1)
+				WITH NOWAIT;
+			WAITFOR DELAY '00:00:30';
+			RAISERROR('Procedure continues...', 10, 1) WITH NOWAIT;
+			-- Make the withdrawal...
+			INSERT Test.AccountTransactions (AccountNumber, Amount)
+				VALUES (@AccountNumber, -@AmountToWithdraw);
+			-- Return the new balance of the account:
+			SELECT SUM(Amount) AS BalanceAfterWithdrawal
+			FROM Test.AccountTransactions
+			WHERE AccountNumber = @AccountNumber;
+		COMMIT TRAN;
+	END TRY
+	BEGIN CATCH
+		DECLARE @ErrorMessage NVARCHAR(2047);
+		SET @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, 16, 1);
+		-- Should also use ERROR_SEVERITY() and ERROR_STATE()...
+		IF(XACT_STATE() &lt;&gt; 0)
+			ROLLBACK TRAN;
+	END CATCH
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 1, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-14" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_5396fc9e-5385-4c10-861e-02b0e08157f8');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_5396fc9e-5385-4c10-861e-02b0e08157f8" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 1
+/* Leave the above line to easily see that this query window
+belongs to Connection 1. */
+USE TestDB
+GO 
+Reset/generate the account data
+EXEC Test.spAccountReset;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 2, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-15" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1adeaacc-a28e-4568-b2f0-f0e1b79766b7');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1adeaacc-a28e-4568-b2f0-f0e1b79766b7" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2
+/* Leave the above line to easily see that this query window
+belongs to Connection 2. */
+USE TestDB
+GO
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In this step, you will execute two batches at the same time to try to test for concurrency problems. In both the Connection 1 and Connection 2 query windows, type the following SQL statements without executing them yet. The statements will first retrieve the current account balance and then attempt to empty the account. 
+<div id="code-snippet-16" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_2cfc9a3d-f440-43a9-b384-157a93236bb9');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_2cfc9a3d-f440-43a9-b384-157a93236bb9" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT SUM(Amount) AS BalanceBeforeWithdrawal
+FROM Test.AccountTransactions
+WHERE AccountNumber = 1001;
+GO
+EXEC Test.spAccountWithdraw @AccountNumber = 1001,
+			    @AmountToWithdraw = 2000;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>To get a better view of what will happen, press Ctrl+T in SQL Server Management Studio to set results to be returned as text instead of grids. Do this for both query windows. Now, start the execution in both query windows simultaneously and wait for both batches to finish execution. (This should take approximately 30 seconds because of the WAITFOR DELAY statement in the Test.spAccountWithdraw stored procedure.) Both connections’ batches should return two result sets; the first result set will contain the current account balance (which should be 2,000 for both batches), and the second result set will contain the account balance after the withdrawal. What was the result of the two withdrawals? Was the account overdrawn? What kind of concurrency problem occurred (if any)?</p>
+</li><li>Close all open query windows except one, and in that query window, type and execute the following SQL statements to clean up after this exercise: 
+<div id="code-snippet-17" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_cc9b4e9b-00c1-4596-869d-f71af8683717');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_cc9b4e9b-00c1-4596-869d-f71af8683717" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>&gt;USE master;
+GO
+DROP DATABASE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</li></ol>
+<h4>Exercise 2: Use a Locking Hint</h4>
+<p>In the previous exercise, you encountered the “phantom reads” concurrency problem. In this exercise, you re-create the stored procedure, but this time, you will use the serializable locking hint to protect against phantom reads. </p>
+<ol>
+<li>Open SQL Server Management Studio, and connect to an instance of SQL Server 2005. 
+</li><li>Open a new query window, and type and execute the following SQL statements. This will create the <em>TestDB</em> database, the Test schema, and the tables that you will use in this exercise. You will also create the Test.spAccountReset stored procedure. You can execute this procedure to reset the data in the tables if you need to restart the exercise. 
+<div id="code-snippet-18" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_d25ea348-4362-4e57-8764-3a79f6789106');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_d25ea348-4362-4e57-8764-3a79f6789106" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE DATABASE TestDB;
+GO
+USE TestDB;
+GO
+CREATE SCHEMA Test;
+GO
+CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+);
+CREATE TABLE Test.AccountTransactions (
+	TransactionID INT IDENTITY PRIMARY KEY	
+	,AccountNumber INT NOT NULL REFERENCES Test.Accounts
+	,CreatedDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	,Amount DECIMAL(19, 5) NOT NULL
+);
+GO
+CREATE PROC Test.spAccountReset
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DELETE Test.AccountTransactions;
+	DELETE Test.Accounts;
+	INSERT Test.Accounts (AccountNumber) VALUES (1001);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 100);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 500);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 1400);
+	SELECT AccountNumber, SUM(Amount) AS Balance
+	FROM Test.AccountTransactions
+	GROUP BY AccountNumber;
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, and type and execute the following SQL statements to create the Test.spAccountWithdraw stored procedure: 
+<div id="code-snippet-19" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1dccb0cf-f1cf-40df-baf4-199854fb4583');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1dccb0cf-f1cf-40df-baf4-199854fb4583" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE TestDB;
+GO
+CREATE PROC Test.spAccountWithdraw
+@AccountNumber INT
+,@AmountToWithdraw DECIMAL(19, 5)
+AS
+BEGIN
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+	BEGIN TRY
+		IF(@AmountToWithdraw &lt;= 0)
+			RAISERROR('@AmountToWithdraw must be &gt; 0.', 16, 1);
+		BEGIN TRAN;
+			-- Verify that the account exists...
+			IF NOT EXISTS(
+					SELECT *
+					FROM Test.Accounts
+					WHERE AccountNumber = @AccountNumber
+				)
+				RAISERROR('Account not found.', 16, 1);
+			-- Verify that the account will not be overdrawn...
+			IF (@AmountToWithdraw &gt; (
+					SELECT SUM(Amount)
+					FROM Test.AccountTransactions WITH(SERIALIZABLE)
+					WHERE AccountNumber = @AccountNumber)
+				)
+				RAISERROR('Not enough funds in account.', 16, 1);
+			-- ** USED TO TEST CONCURRENCY PROBLEMS **
+			RAISERROR('Pausing procedure for 10 seconds...', 10, 1)
+				WITH NOWAIT;
+			WAITFOR DELAY '00:00:30';
+			RAISERROR('Procedure continues...', 10, 1) WITH NOWAIT;
+			-- Make the withdrawal...
+			INSERT Test.AccountTransactions (AccountNumber, Amount)
+				VALUES (@AccountNumber, -@AmountToWithdraw);
+			
+			-- Return the new balance of the account:
+			SELECT SUM(Amount) AS BalanceAfterWithdrawal
+			FROM Test.AccountTransactions
+			WHERE AccountNumber = @AccountNumber;
+		COMMIT TRAN;
+	END TRY
+	BEGIN CATCH
+		DECLARE @ErrorMessage NVARCHAR(2047);
+		SET @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, 16, 1);
+		-- Should also use ERROR_SEVERITY() and ERROR_STATE()...
+		IF(XACT_STATE() &lt;&gt; 0)
+			ROLLBACK TRAN;
+	END CATCH
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 1, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-20" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_abb51b89-d38f-469b-a528-65b7867e1602');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_abb51b89-d38f-469b-a528-65b7867e1602" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 1
+/* Leave the above line to easily see that this query window
+belongs to Connection 1. */
+USE TestDB;
+GO
+Reset/generate the account data
+EXEC Test.spAccountReset;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 2, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-21" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_39bdfb97-3cd7-4939-9e88-ebc6af664e27');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_39bdfb97-3cd7-4939-9e88-ebc6af664e27" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2
+/* Leave the above line to easily see that this query window
+belongs to Connection 2. */
+USE TestDB;
+GO
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In this step, you will execute two batches at the same time to try to test for concurrency problems. In both the Connection 1 and Connection 2 query windows, type the following SQL statements without executing them yet. The statements will first retrieve the current account balance and then attempt to empty the account. 
+<div id="code-snippet-22" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_71729b03-122e-4104-b486-789e0daf7b7b');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_71729b03-122e-4104-b486-789e0daf7b7b" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT SUM(Amount) AS BalanceBeforeWithdrawal
+FROM Test.AccountTransactions
+WHERE AccountNumber = 1001;
+GO
+EXEC Test.spAccountWithdraw @AccountNumber = 1001,
+			    @AmountToWithdraw = 2000;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>To get a better view of what will happen, press Ctrl+T in SQL Server Management Studio to set results to be returned as text instead of grids. Do this for both query windows. Now, start the execution in both query windows simultaneously and wait for both batches to finish execution. (This should take approximately 30 seconds because of the WAITFOR DELAY statement in the Test.spAccountWithdraw stored procedure.) Both connections’ batches should return two result sets; the first result set will contain the current account balance (which should be 2,000 for both batches), and the second result set will contain the account balance after the withdrawal. What was the result of the two withdrawals? Was the account overdrawn? What kind of concurrency problem occurred (if any)? Was there any other problem with this implementation?</p>
+</li><li>Close all open query windows except one, and in that query window, type and execute the following SQL statements to clean up after this exercise: 
+<div id="code-snippet-23" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_26221ef4-7397-49a5-a82c-99ee38a344fb');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_26221ef4-7397-49a5-a82c-99ee38a344fb" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE master;
+GO
+DROP DATABASE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</li></ol>
+<h4>Exercise 3: Use an Alternative Solution</h4>
+<p>In Exercise 2, the account was not overdrawn, and you didn’t experience any concurrency problems. The connections were instead deadlocked. In this exercise, you re-create the stored procedure to protect against both phantom reads and deadlocks by changing the implementation slightly.</p>
+<ol>
+<li>Open SQL Server Management Studio, and connect to an instance of SQL Server 2005. 
+</li><li>Open a new query window, and type and execute the following SQL statements. This will create the <em>TestDB</em> database, the Test schema, and the tables that will be used in this exercise: you will also create the Test.spAccountReset stored procedure. You can execute this procedure to reset the data in the tables if you need to restart the exercise. 
+<div id="code-snippet-24" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_d66472b7-ff3b-49e1-8c36-f9aff98926b3');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_d66472b7-ff3b-49e1-8c36-f9aff98926b3" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>CREATE DATABASE TestDB;
+GO
+USE TestDB;
+GO
+CREATE SCHEMA Test;
+GO
+CREATE TABLE Test.Accounts (
+	AccountNumber INT PRIMARY KEY
+);
+CREATE TABLE Test.AccountTransactions (
+	TransactionID INT IDENTITY PRIMARY KEY
+	,AccountNumber INT NOT NULL REFERENCES Test.Accounts
+	,CreatedDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	,Amount DECIMAL(19, 5) NOT NULL
+);
+GO
+CREATE PROC Test.spAccountReset
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DELETE Test.AccountTransactions;
+	DELETE Test.Accounts;
+	INSERT Test.Accounts (AccountNumber) VALUES (1001);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 100);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 500);
+	INSERT Test.AccountTransactions (AccountNumber, Amount)
+	VALUES (1001, 1400);
+	SELECT AccountNumber, SUM(Amount) AS Balance
+	FROM Test.AccountTransactions
+	GROUP BY AccountNumber;
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, and type and execute the following SQL statements to create the Test.spAccountWithdraw stored procedure: 
+<div id="code-snippet-25" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_62efe1d3-2b68-41d4-a685-23083f17005b');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_62efe1d3-2b68-41d4-a685-23083f17005b" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE TestDB;
+GO
+CREATE PROC Test.spAccountWithdraw
+@AccountNumber INT
+,@AmountToWithdraw DECIMAL(19, 5)
+AS
+BEGIN
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+	BEGIN TRY
+		IF(@AmountToWithdraw &lt;= 0)
+			RAISERROR('@AmountToWithdraw must be &gt; 0.', 16, 1);
+		BEGIN TRAN;
+			-- Verify that the account exists
+			-- and LOCK the account from access by other queries
+			-- that will write to the account or its transactions.
+			-- Note that SELECT statements against the account
+			-- will still be allowed.
+			IF NOT EXISTS(
+					SELECT *
+					FROM Test.Accounts WITH (UPDLOCK)
+					WHERE AccountNumber = @AccountNumber
+				)
+				RAISERROR('Account not found.', 16, 1);
+			-- Verify that the account will not be overdrawn...
+			IF (@AmountToWithdraw &gt; (
+					SELECT SUM(Amount)
+					FROM Test.AccountTransactions /* NO LOCKING HINT */
+					WHERE AccountNumber = @AccountNumber)
+				)
+				RAISERROR('Not enough funds in account.', 16, 1);
+			-- ** USED TO TEST CONCURRENCY PROBLEMS **
+			RAISERROR('Pausing procedure for 10 seconds...', 10, 1)
+				WITH NOWAIT;
+			WAITFOR DELAY '00:00:30';
+			RAISERROR('Procedure continues...', 10, 1) WITH NOWAIT;
+			-- Make the withdrawal...
+			INSERT Test.AccountTransactions (AccountNumber, Amount)
+				VALUES (@AccountNumber, -@AmountToWithdraw);
+			-- Return the new balance of the account:
+			SELECT SUM(Amount) AS BalanceAfterWithdrawal
+			FROM Test.AccountTransactions
+			WHERE AccountNumber = @AccountNumber;
+		COMMIT TRAN;
+	END TRY
+	BEGIN CATCH
+		DECLARE @ErrorMessage NVARCHAR(2047);
+		SET @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, 16, 1);
+		-- Should also use ERROR_SEVERITY() and ERROR_STATE()...
+		IF(XACT_STATE() &lt;&gt; 0)
+			ROLLBACK TRAN;
+	END CATCH
+END
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 1, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-26" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_689fab26-a1b3-4f68-bd81-481fc6f57768');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_689fab26-a1b3-4f68-bd81-481fc6f57768" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 1
+/* Leave the above line to easily see that this query window
+belongs to Connection 1. */
+USE TestDB
+GO
+Reset/generate the account data
+EXEC Test.spAccountReset;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 2, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-27" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_bfb9b2af-c60b-4a3a-98f1-6d592c32d5e5');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_bfb9b2af-c60b-4a3a-98f1-6d592c32d5e5" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2
+/* Leave the above line to easily see that this query window
+belongs to Connection 2. */
+USE TestDB
+GO
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In this step, you will execute two batches at the same time to try to test for concurrency problems. In both the Connection 1 and Connection 2 query windows, type the following SQL statements without executing them yet. The statements will first retrieve the current account balance and will then attempt to empty the account. 
+<div id="code-snippet-28" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_ce947b35-c023-4b98-b601-1a026eb8170e');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_ce947b35-c023-4b98-b601-1a026eb8170e" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT SUM(Amount) AS BalanceBeforeWithdrawal
+FROM Test.AccountTransactions
+WHERE AccountNumber = 1001;
+GO
+EXEC Test.spAccountWithdraw @AccountNumber = 1001,
+			    @AmountToWithdraw = 2000;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>To get a better view of what will happen, press Ctrl+T in SQL Server Management Studio to set results to be returned as text instead of grids. Do this for both query windows. Now, start the execution in both query windows simultaneously and wait for both batches to finish execution. (This should take approximately 30 seconds because of the WAITFOR DELAY statement in the Test.spAccountWithdraw stored procedure.) Both connections’ batches should return two result sets; the first result set will contain the current account balance (which should be 2,000 for both batches), and the second result set will contain the account balance after the withdrawal. What was the result of the two withdrawals? Was the account overdrawn? What kind of concurrency problem occurred (if any)? Was there any other problem with this implementation?</p>
+</li><li>Close all open query windows except one, and in that query window, type and execute the following SQL statements to clean up after this exercise: 
+<div id="code-snippet-29" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_a15326f7-2340-4036-9765-249a94b2b859');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_a15326f7-2340-4036-9765-249a94b2b859" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE master;
+GO
+DROP DATABASE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</li></ol>
+<div class="msl_boxed">
+<p>
+</p><h3>Quick Check</h3>
+<ol>
+<li>What is the difference between the READPAST and READUNCOMMITTED table locking hints? 
+</li><li>Which transaction isolation level cannot be specified as a table locking hint? 
+</li><li>What is the advantage of locking larger resources, such as tables, instead of rows? 
+</li><li>What is the main advantage of locking smaller resources, such as rows, instead of tables or pages?</li></ol>
+<h4>Quick Check Answers</h4>
+<ol>
+<li>Both the READPAST and READUNCOMMITTED table locking hints will prevent SELECT (and also UPDATE/DELETE for READPAST) statements from being blocked by resources locked exclusively by other transactions. The difference is that READUNCOMMITTED will return the dirty values for locked resources, while READPAST will simply skip them. (That is, it will not return them at all). 
+</li><li>The snapshot isolation level cannot be specified as a table locking hint. 
+</li><li>The advantage of locking larger resources is that it will reduce the work required by the SQL Server lock manager to allocate locks (because far fewer locks are allocated), and it will also reduce the memory used to maintain locks. 
+</li><li>The main advantage of locking smaller resources is that it greatly reduces the risk of blocking and deadlocks.</li></ol>
+<p></p></div><br><br>
+
+<a href="http://technet.microsoft.com/en-us/library/cc546518.aspx">&lt; Back</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://technet.microsoft.com/en-us/library/cc546511.aspx">Next &gt;</a></div>    <p>&nbsp;</p><p>&nbsp;</p><p>© Microsoft. All Rights Reserved.</p>
+    </div>
+</div>
+
+
+
+
+
+<div id="contentFeedback">
+    <form method="post" action="http://technet.microsoft.com/en-us/library/feedback/add/cc546505.aspx">
+        <input name="__RequestVerificationToken" type="hidden" value="YDijCj94iI_9J4usgEYi3RbANefFbjTE7_OBRx3aYfGAudD5F0wHBNEKB1wJX7DANrvhhlPkhr8xgPEAUiROctBXHx_45wFpHOm1VG1QVgf1YjoA_S2tpgDQD-AtKYXgSxLKpA2">
+    <div id="contentFeedbackContainer">
+        <div class="FeedbackTitleContainer">
+            <a name="feedback"></a>
+        Did you find this helpful?
+            <input id="rdIsUsefulYes" name="rdIsUseful" type="radio" value="1" onclick="toggleContentFeedback(&#39;Yes&#39;);"><label for="rdIsUsefulYes">Yes</label>
+            <input id="rdIsUsefulNo" name="rdIsUseful" type="radio" value="0" onclick="toggleContentFeedback(&#39;No&#39;);"><label for="rdIsUsefulNo">No</label>
+        
+        </div>
+        
+            <div id="contentFeedbackQAContainer">
+                
+                    <div id="feedbackListNoContainer" class="FeedbackListContainer">
+                        
+                            <div>
+                                <input id="chkbxNo201" name="chkbxNo" type="checkbox" value="201">
+                                <label for="chkbxNo201">Not accurate</label>
+                            </div>
+                        
+                            <div>
+                                <input id="chkbxNo202" name="chkbxNo" type="checkbox" value="202">
+                                <label for="chkbxNo202">Not enough depth</label>
+                            </div>
+                        
+                            <div>
+                                <input id="chkbxNo203" name="chkbxNo" type="checkbox" value="203">
+                                <label for="chkbxNo203">Need more code examples</label>
+                            </div>
+                        
+                    </div>
+                
+                <div class="FeedbackTellUsMoreContainer">
+                    <textarea id="feedbackText" name="feedbackText" class="TellUsMoreTextBoxSearchLoaded" onfocus="WatermarkFocus(this, &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearch&#39;)" onblur="WatermarkBlur(this, &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearchLoaded&#39;)" onmouseover="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)" onkeydown="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)" onkeyup="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)">Tell us more...</textarea>
+                </div>
+                <span class="counter">(<span id="feedbackTextCounter">1500</span> characters remaining)</span>
+                <input type="hidden" id="returnUrl" name="returnUrl" value="http://technet.microsoft.com/en-us/library/cc546505.aspx">
+                <input type="submit" id="submit" value="Submit" title="Click to Submit Feedback" onclick="WatermarkOnSubmit(document.getElementById(&#39;feedbackText&#39;), &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearch&#39;)">
+                <div style="clear: both;"></div>
+            </div>  
+        
+    </div>
+    </form>
+</div>
+    
+
+
+
+</div>
+
+
+            </div>
+            <div class="clear"></div>
+        
+            
+    
+   <div id="ux-footer" class="Chrome ltr">
+
+    <div class="ux-footer-clear"></div>
+    <div id="footerRight">
+        <div id="FooterLogoContainer"><div id="FooterLogo"></div></div>
+        <div id="FooterCopyright">© 2013 Microsoft</div>
+    </div>
+    <div id="footerLeft">
+        <div id="footerProfileLink">
+        <div data-fragmentname="ManageProfileLink" id="Fragment_ManageProfileLink" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="http://go.microsoft.com/?linkid=8786243" xmlns="http://www.w3.org/1999/xhtml">Manage Your Profile</a>
+</div>
+        </div>
+        <div id="footerGroup">
+            <div id="LinkGroup">
+                <div id="Links1"><div data-fragmentname="FooterLinks" id="Fragment_FooterLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="Links">
+      <ul class="LinkColumn horizontal">
+        <li>
+          <a href="http://technet.microsoft.com/cc543196.aspx" xmlns="http://www.w3.org/1999/xhtml">Newsletter</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://technet.microsoft.com/cc512759.aspx" xmlns="http://www.w3.org/1999/xhtml">Contact Us</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://go.microsoft.com/fwlink/?linkid=248681" xmlns="http://www.w3.org/1999/xhtml">Privacy Statement</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://technet.microsoft.com/cc300389.aspx" xmlns="http://www.w3.org/1999/xhtml">Terms of Use</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://www.microsoft.com/About/Legal/EN/US/IntellectualProperty/Trademarks/EN-US.aspx" xmlns="http://www.w3.org/1999/xhtml">Trademarks</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div></div>
+            </div>
+            <div id="Feedback">
+                <div class="feedbackListItem">
+                    <div class="LinksDivider">|</div>
+                    <div class="LinkColumn">
+                        
+
+
+
+
+
+<div class="FooterSiteFeedBack">
+    <a id="SiteFeedbackLinkOpener" href="javascript:void(0)">
+        <span class="FeedbackButton clip20x21" id="FeedbackButton">
+            <img id="feedBackImg" class="cl_footer_feedback_icon" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/ImageSprite.png" alt="Site Feedback">
+        </span>
+        Site Feedback
+    </a>
+    
+    <div id="SiteFeedbackLinkContainer" class="SiteFeedbackLinkContainer" style="display: none;">
+    <form id="siteFeedbackForm" method="post" action="http://technet.microsoft.com/en-us/library/feedback/add/cc546505(v=technet.10).aspx">
+        <div class="SiteFeedbackLinkTitleContainer">
+            <div class="SiteFeedbackLinkTitle">
+                Site Feedback
+            </div>
+            <div class="SiteFeedbackLinkCancel">
+                <a id="SiteFeedbackLinkCloser" href="javascript:void(0)">x</a>
+            </div>
+        </div>
+        <div class="SiteFeedbackLinkData">
+            <div class="SiteFeedbackLinkInfoText">
+                Tell us about your experience...
+            </div>
+            <div class="QuestionText">
+                Did the page load quickly?
+            </div>
+            <div class="AnswerText">
+                
+                <span>
+                    Yes<span>
+                        <input id="searchBox" name="searchBox" type="radio" value="1"></span></span>
+                
+                <span>
+                    No<span>
+                        <input id="searchBox" name="searchBox" type="radio" value="0"></span></span>
+                
+            </div>
+            <div class="QuestionText">
+                Do you like the page design?
+            </div>
+            <div class="AnswerText">
+                
+                <span>
+                    Yes<span>
+                        <input id="tabbedCode" name="tabbedCode" type="radio" value="1"></span></span>
+                
+                <span>
+                    No<span>
+                        <input id="tabbedCode" name="tabbedCode" type="radio" value="0"></span></span>
+                
+            </div>
+            <div class="QuestionText">
+                Tell us more
+            </div>
+            <div class="SiteFeedbackLinkTextAreaContainer">
+                <textarea id="feedbackText" data-maxlength="4000" name="feedbackText" cols="25" rows="5" class="SiteFeedbackLinkTextArea"></textarea>
+                
+                <textarea id="feedbackDescription" name="feedbackDescription" cols="25" rows="10" style="display: none;">Enter description here.</textarea>
+                <input type="hidden" id="feedbackPriority" name="feedbackPriority" value="">
+                <input type="hidden" id="feedbackSourceUrl" name="feedbackSourceUrl" value="">
+                <input type="hidden" id="ClientIP" name="ClientIP" value="">
+                <input type="hidden" id="ClientOS" name="ClientOS" value="">
+                <input type="hidden" id="ClientBrowser" name="ClientBrowser" value="">
+                <input type="hidden" id="ClientTime" name="ClientTime" value="">
+                <input type="hidden" id="ClientTimeZone" name="ClientTimeZone" value="">
+                
+            </div>
+            <div>
+                <input id="siteFeedbackSubmit" type="submit" value="Send" class="SiteFeedbackLinkSubmit">
+            </div>
+        </div>
+        <input type="hidden" id="returnUrl" name="returnUrl" value="http://technet.microsoft.com/en-us/library/cc546505.aspx">
+    <input name="__RequestVerificationToken" type="hidden" value="y6gYXM4_1clA0mHqgzpcsg42CtbINa7UxJ1xQFPrx0prc17in276ooVM47pDYZLg5C6_KeHv5Lkn9G9ZyLRevLv8G_jAq-UYA_CzMwzmu6hfrximhtz9v4JcyCPdHdlSBNBczw2"></form>
+</div>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div id="Links2"></div>
+    </div>
+</div> 
+
+
+            <div class="footerPrintView">
+                <div class="footerCopyrightPrintView">© 2013 Microsoft. All rights reserved.</div>
+            </div>
+
+            
+            
+    
+    
+    <input id="tocPaddingPerLevel" type="hidden" value="17">
+
+
+        
+            <input id="MtpsDevice" type="hidden" value="Lightweight">
+
+
+<!--[CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]-->
+        
+            
+            
+            
+            
+            
+        
+
+
+
+
+
+<noscript>&lt;div&gt;&lt;img alt="DCSIMG" id="Img1" width="1" height="1" src="http://m.webtrends.com/dcsjwb9vb00000c932fd0rjc7_5p3t/njs.gif?dcsuri=/nojavascript&amp;amp;WT.js=No" /&gt;&lt;/div&gt;</noscript>
+
+
+
+
+
+
+
+
+
+<noscript>
+  &lt;a href="http://www.omniture.com" title="Web Analytics"&gt;
+    &lt;img src="//msstonojstechnet.112.2o7.net/b/ss/msstonojstechnet/1/H.20.2--NS/0" height="1" width="1" border="0" alt="" /&gt;
+  &lt;/a&gt;
+</noscript>
+
+
+
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" type="hidden" value="y6gYXM4_1clA0mHqgzpcsg42CtbINa7UxJ1xQFPrx0prc17in276ooVM47pDYZLg5C6_KeHv5Lkn9G9ZyLRevLv8G_jAq-UYA_CzMwzmu6hfrximhtz9v4JcyCPdHdlSBNBczw2">
+</div>
+
+
+        </div>
+    <script type="text/javascript" class="mtps-injected">
+/*<![CDATA[*/
+(function(window,document){"use strict";function preload(scripts){for(var result=[],script,e,i=0;i<scripts.length;i++)script=scripts[i],script.hasOwnProperty("url")&&(e=document.createElement("script"),e.src=script.url,script.throwaway=e),result.push(script);return result}function inject(scripts,index){var script,elem;if(index>=scripts.length){delete mtps.injectScripts;return}script=scripts[index],elem=document.createElement("script"),elem.className="mtps-injected",elem.async=!1;var isLoaded=!1,timeoutId=0,injectNextFnName="",injectNext=elem.onerror=function(){isLoaded||(isLoaded=!0,inject(scripts,index+1),window.clearTimeout(timeoutId),elem.onload=elem.onerror=elem.onreadystatechange=null,injectNextFnName&&delete mtps[injectNextFnName],elem.removeEventListener&&elem.removeEventListener("load",injectNext,!1))};elem.addEventListener?elem.addEventListener("load",injectNext,!1):elem.readyState==="uninitialized"?elem.onreadystatechange=function(){(this.readyState==="loaded"||this.readyState==="complete")&&injectNext()}:elem.onload=injectNext,script.hasOwnProperty("url")?(timeoutId=window.setTimeout(injectNext,12e4),elem.src=script.url):(injectNextFnName="_injectNextScript_"+index,mtps[injectNextFnName]=injectNext,timeoutId=window.setTimeout(injectNext,2e3),elem.text="try {\n"+script.txt+"\n} finally { MTPS."+injectNextFnName+" && MTPS."+injectNextFnName+"(); }"),parent.appendChild(elem)}var mtps=window.MTPS||(window.MTPS={}),parent=document.getElementsByTagName("head")[0];mtps.injectScripts=function(scripts){inject(preload(scripts),0)}})(window,document);
+MTPS.injectScripts([
+	{ txt: "/**/\r\n(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { \r\n\t\"image\": \"http://i.technet.microsoft.com\", \r\n\t\"js\": \"http://i2.technet.microsoft.com\", \r\n\t\"css\": \"http://i3.technet.microsoft.com\"\r\n});\r\n/**/" },
+	{ url: "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js" },
+	{ txt: "//\n  var literalNormalizedUrl = \u0027/en-us/library/cc546505(d=default,l=en-us,v=technet.10).aspx\u0027;\n  var wt_nvr_ru = \u0027WT_NVR_RU\u0027;\n  var wt_fpcdom = \u0027.microsoft.com\u0027;\n  var wt_domlist = \u0027technet.microsoft.com\u0027;\n  var wt_pathlist = \u0027/technet/\u0027;\n  var wt_paramlist = \u0027DCSext.mtps_techcenter\u0027;\n  var wt_siteid = \u0027TECHNET\u0027;\n  var gDomain = \u0027m.webtrends.com\u0027;\n  var gDcsId = \u0027dcsjwb9vb00000c932fd0rjc7_5p3t\u0027;\n  var gFpc = \u0027WT_FPC\u0027;\n\n\n\n  if (document.cookie.indexOf(gFpc + \"=\") == -1) {\n    var wtidJs = document.createElement(\"script\");\n    wtidJs.src = \"//\" + gDomain + \"/\" + gDcsId + \"/wtid.js\";\n    document.getElementsByTagName(\"head\")[0].appendChild(wtidJs);\n  }\n\n\n\n  var detectedLocale = \u0027en-us\u0027;\n  var wtsp = \u0027_technet_library_mspress\u0027;\n  var gTrackEvents = \u00270\u0027;\n/**/" },
+	{ txt: "/**/\n  var omni_guid = \"6979afe7-8517-4fbb-a01b-95ea648acec4\";\n/**/" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:Utilities,0:Topic,1:webtrendsscript,2:omni_rsid_TechNet;/Areas/Epx/Content/Scripts:0,/Areas/Global/Content/Webtrends/resources:1,/Areas/Global/Content/Omniture/resources/TechNet:2\u0026amp;hashKey=35BF4EE0DD7E30901440BE9E9CE63DAC" },
+	{ txt: "var omnitureTracking = true;" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:megablade.1,1:SearchBox;/Areas/Epx/Themes/Shared/Content:0,/Areas/Epx/Themes/Base/Content:1\u0026amp;hashKey=82823761E41AA5A4D030043FB1671ACB" },
+	{ url: "http://i1.services.social.microsoft.com/search/Widgets/SearchBox.jss?boxid=HeaderSearchTextBox\u0026btnid=HeaderSearchButton\u0026brand=TechNet\u0026loc=en-us\u0026watermark=TechNet\u0026focusOnInit=false" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:Header.1,1:Toc,1:NavigationResize,2:FeedbackCounter,2:Feedback,3:SiteFeedbackLink,3:CodeSnippet,3:TopicNotInScope,3:CollapsibleArea,3:VersionSelector,3:SurveyBroker;/Areas/Epx/Themes/TechNet/Content:0,/Areas/Epx/Library/Content:1,/Areas/Epx/Shared/Content:2,/Areas/Epx/Content/Scripts:3\u0026amp;hashKey=9329CE77D6B9AB2128552F95DF8E84EE" },
+	{ txt: "$(document).ready(function() {\n        try {\n            var token = $(\"#globalRequestVerification input[name=\u0027__RequestVerificationToken\u0027]\").clone();\n            $(\"#siteFeedbackForm\").append(token);\n        } catch(err) {\n            \n        }\n    });" }
+]);
+
+/*]]>*/
+</script>
+<script src="./Lesson 2  Designing Transactions and Optimizing Locking_files/broker-config.js"></script><div style="display: none;" id="_WEDCSInsertedData"><iframe id="_msnFrame" src="./Lesson 2  Designing Transactions and Optimizing Locking_files/c.gif" style="z-index:-1;height:1px;width:1px;display:none;visibility:hidden;" onload="javascript:MscomBeacon();"></iframe></div></body></html>

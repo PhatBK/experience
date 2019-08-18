@@ -1,0 +1,4 @@
+﻿Due to the limitations of the supported zip file format, the following file(s) had to be renamed.
+
+Original File Name  ->  New File Name
+ThamKhao/SQL Việt blog» Blog Arch...pdf -> ThamKhao/File1.pdf

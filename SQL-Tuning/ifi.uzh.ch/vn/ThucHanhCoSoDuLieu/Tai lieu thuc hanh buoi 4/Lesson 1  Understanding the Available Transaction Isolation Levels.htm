@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://technet.microsoft.com/en-us/library/cc546518.aspx -->
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml"><meta style="visibility: hidden !important; display: block !important; width: 0px !important; height: 0px !important; border-style: none !important;"><embed id="__IDM__" type="application/x-idm-downloader" width="1" height="1" style="visibility: hidden !important; display: block !important; width: 1px !important; height: 1px !important; border-style: none !important; position: absolute !important; top: 0px !important; left: 0px !important;"></meta><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="canonical" href="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Lesson 1  Understanding the Available Transaction Isolation Levels.htm">
+        <title>Lesson 1: Understanding the Available Transaction Isolation Levels</title>
+
+
+
+
+<meta name="DCS.dcsuri" content="/en-us/library/cc546518(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="NormalizedUrl" content="http://technet.microsoft.com/en-us/library/cc546518(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="VotingContextUrl" content="http://technet.microsoft.com/en-us/library/cc546518(d=default,l=en-us,v=technet.10).aspx">
+
+<meta name="MN" content="EE4293C2-12:03:26 PM">
+
+<meta name="Search.ShortId" content="cc546518">
+
+<meta name="Ms.Locale" content="en-us">
+
+
+
+
+
+
+
+
+        
+    <link rel="stylesheet" type="text/css" href="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Combined.css"><script type="text/javascript" async="" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ms2.js"></script><script class="mtps-injected">try {
+/**/
+(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { 
+	"image": "http://i.technet.microsoft.com", 
+	"js": "http://i2.technet.microsoft.com", 
+	"css": "http://i3.technet.microsoft.com"
+});
+/**/
+} finally { MTPS._injectNextScript_0 && MTPS._injectNextScript_0(); }</script><script class="mtps-injected" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/jquery-1.8.2.min.js"></script><script class="mtps-injected">try {
+//
+  var literalNormalizedUrl = '/en-us/library/cc546518(d=default,l=en-us,v=technet.10).aspx';
+  var wt_nvr_ru = 'WT_NVR_RU';
+  var wt_fpcdom = '.microsoft.com';
+  var wt_domlist = 'technet.microsoft.com';
+  var wt_pathlist = '/technet/';
+  var wt_paramlist = 'DCSext.mtps_techcenter';
+  var wt_siteid = 'TECHNET';
+  var gDomain = 'm.webtrends.com';
+  var gDcsId = 'dcsjwb9vb00000c932fd0rjc7_5p3t';
+  var gFpc = 'WT_FPC';
+
+
+
+  if (document.cookie.indexOf(gFpc + "=") == -1) {
+    var wtidJs = document.createElement("script");
+    wtidJs.src = "//" + gDomain + "/" + gDcsId + "/wtid.js";
+    document.getElementsByTagName("head")[0].appendChild(wtidJs);
+  }
+
+
+
+  var detectedLocale = 'en-us';
+  var wtsp = '_technet_library_mspress';
+  var gTrackEvents = '0';
+/**/
+} finally { MTPS._injectNextScript_2 && MTPS._injectNextScript_2(); }</script><script class="mtps-injected">try {
+/**/
+  var omni_guid = "e43ad535-8b03-47bc-8298-be3e631af345";
+/**/
+} finally { MTPS._injectNextScript_3 && MTPS._injectNextScript_3(); }</script><script class="mtps-injected" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Combined.js"></script><script class="mtps-injected">try {
+var omnitureTracking = true;
+} finally { MTPS._injectNextScript_5 && MTPS._injectNextScript_5(); }</script><script class="mtps-injected" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Combined(1).js"></script><script class="mtps-injected" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/SearchBox.jss"></script><script class="mtps-injected" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Combined(2).js"></script><script src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/broker.js"></script><script class="mtps-injected">try {
+$(document).ready(function() {
+        try {
+            var token = $("#globalRequestVerification input[name='__RequestVerificationToken']").clone();
+            $("#siteFeedbackForm").append(token);
+        } catch(err) {
+            
+        }
+    });
+} finally { MTPS._injectNextScript_9 && MTPS._injectNextScript_9(); }</script><link type="text/css" rel="stylesheet" href="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/PrintView.css" media="print"></head>
+    <body class="library">
+        <div id="page">
+            
+            
+  
+            
+        <link type="text/css" rel="stylesheet" href="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Megablade.1.css" data-do-not-move="true">
+    <div id="megabladeContainer" style="">
+        <div id="megabladeContainerCenter">
+            <ul id="megabladeItems">
+                <li class="Logo"><a href="http://technet.microsoft.com/" title="TechNet">TechNet</a></li>
+                        <li data-value="hh326172" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Products</a><span class="caret"></span></li>
+                        <li data-value="hh880860" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">IT Resources</a><span class="caret"></span></li>
+                        <li data-value="hh371326" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Downloads</a><span class="caret"></span></li>
+                        <li data-value="jj837158" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Training</a><span class="caret"></span></li>
+                        <li data-value="hh371327" class="bladeItem bladeItemWithMenu"><a class="label" href="" onclick="return false;">Support</a><span class="caret"></span></li>
+            </ul>
+            <div class="bladeItemMenuContainer">
+                    <div data-value="hh326172" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Products">
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/windows">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:0;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/windows">Windows</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/windowsserver">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-389px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/windowsserver">Windows<br>Server</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/systemcenter">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-250px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/systemcenter">System<br>Center</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/ie">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-300px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/ie">Internet<br>Explorer</a>
+      </li>
+    </ul>
+    <ul id="">
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/office">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-102px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/office">Office</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/office365">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-102px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/office365">Office 365</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/exchange">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-50px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/exchange">Exchange<br>Server</a>
+      </li>
+    </ul>
+    <ul>
+      <li style="min-height:50px;width:176px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/sql">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-200px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/sql">SQL Server</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/sharepoint">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-153px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 7px 0 7px 6px;vertical-align:top;" href="http://technet.microsoft.com/sharepoint">SharePoint<br>Products</a>
+      </li>
+      <li style="min-height:50px;width:176px;padding-top:10px;">
+        <a style="height:45px;width:50px;position:relative;overflow:hidden;display:inline-block;background:#ccc;" href="http://technet.microsoft.com/lync">
+          <img alt="" height="470" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ff404193.windows(en-us,MSDN.10).png" style="left:0;top:-428px;position:relative;" width="50">
+        </a>
+        <a style="display:inline-block;width:auto;padding: 16px 0 16px 6px;vertical-align:top;" href="http://technet.microsoft.com/lync">Lync</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/en-us/bb421517.aspx?wt.svl=more_centers_link">See all products »</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh880860" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Resources">
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157772">Evaluation Center</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/bb291022">Learning Resources</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157773">Microsoft IT Camps</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157774">Microsoft Virtual Academy</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/scriptcenter">Script Center</a>
+      </li>
+      <li>
+        <a href="http://blogs.technet.com/serverandtools">Server and Tools Blogs</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/solutionaccelerators">Solution Accelerators</a>
+      </li>
+      <li>
+        <a href="http://blogs.technet.com/">TechNet Blogs</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="http://technet.microsoft.com/cc543196">TechNet Flash Newsletter</a>
+      </li>
+      <li>
+        <a href="http://gallery.technet.microsoft.com/">TechNet Gallery</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/library/default.aspx">TechNet Library</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/magazine">TechNet Magazine</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/subscriptions">TechNet Subscriptions</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/video">TechNet Video</a>
+      </li>
+      <li>
+        <a href="http://social.technet.microsoft.com/wiki">TechNet Wiki</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/sysinternals">Windows Sysinternals</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/virtuallabs">Virtual Labs</a>
+      </li>
+    </ul>
+    <ul id="Solutions">
+      <li>
+        <a href="http://technet.microsoft.com/network">Networking</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/cloud/private-cloud">Private Cloud</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/security">Security</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/virtualization">Virtualization</a>
+      </li>
+    </ul>
+    <p>&nbsp;</p>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh371326" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Updates">
+      <li>
+        <a href="http://support.microsoft.com/default.aspx?id=fh;en-us;sp&fr=0&sd=gn&ln=en-us&ct=sd&se=nona">Service Packs</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/security/bulletin">Security Bulletins</a>
+      </li>
+      <li>
+        <a href="http://fe1.update.microsoft.com/microsoftupdate/v6/vistadefault.aspx?ln=en-US">Microsoft Update</a>
+      </li>
+    </ul>
+    <ul id="Trials">
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200127473">Windows Server 2012</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200138112">System Center 2012 SP1</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200156426">Microsoft SQL Server 2012 SP1</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200138107">Windows 8 Enterprise</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157775" title="See all trials">See all trials »</a>
+      </li>
+    </ul>
+    <ul id="Related Sites">
+      <li>
+        <a href="http://www.microsoft.com/downloads/search.aspx">Microsoft Download Center</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200157776">TechNet Evaluation Center</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/download/driver.aspx?q=driver">Drivers</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/download/compatibility.aspx?q=compatibility">Compatability &amp; Converters</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/sysinternals">Windows Sysinternals</a>
+      </li>
+      <li>
+        <a href="http://gallery.technet.microsoft.com/">TechNet Gallery</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="jj837158" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div>
+    <ul id="Training">
+      <li>
+        <a href="http://learning.microsoft.com/Manager/BrowseCatalog.aspx?browse=PT">Training Catalog</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/classlocator.aspx">Class Locator</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155695">Microsoft Virtual Academy</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155696">Free Windows Server 2012 courses</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155697" title="Free Windows 8 courses">Free Windows 8 courses</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/training/sql-server.aspx">SQL Server training</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/training/format-online.aspx">e-Learning overview</a>
+      </li>
+    </ul>
+    <ul id="Certifications">
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-overview.aspx">Certification overview</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/windows-certification.aspx" title="MCSA: Windows 8 ">MCSA: Windows 8</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-windowsserver.aspx">Windows Server Certification (MCSE)</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-private-cloud.aspx">Private Cloud Certification (MCSE)</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/certification/cert-sql-server.aspx">SQL Server Certification (MCSE)</a>
+      </li>
+    </ul>
+    <ul id="Other resources">
+      <li>
+        <a href="http://www.technetevents.com/">TechNet Events</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/learning/en/us/offers/secondshot.aspx">Second shot for certification</a>
+      </li>
+      <li>
+        <a href="http://borntolearn.mslearn.net/btl/b/default.aspx">Born To Learn blog</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200155694">IT Camps</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+                    <div data-value="hh371327" class="bladeItemMenu" style="display: none;">
+                        <div class="navpage">
+  <div id="">
+    <ul id="Support by product">
+      <li>
+        <a href="http://support.microsoft.com/ph/730">Exchange Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/13029">Forefront Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/815">Forefront Edge Security</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/14783/sl">Forefront Server Security</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/807">Internet Explorer</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/8753">Office</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/935/en-us">SharePoint</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="http://support.microsoft.com/ph/1044">SQL Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/16340/en-us">System Center</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/1163">Windows Server</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/1173">Windows XP</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/11732">Windows Vista</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/ph/14019">Windows 7</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/find-solutions/windows/windows-8/">Windows 8</a>
+      </li>
+    </ul>
+    <ul id="Other support links">
+      <li>
+        <a href="https://premier.microsoft.com/">Microsoft Premier Online</a>
+      </li>
+      <li>
+        <a href="http://fixitcenter.support.microsoft.com/Portal">Microsoft Fix It Center</a>
+      </li>
+      <li>
+        <a href="http://social.technet.microsoft.com/Forums/en-us/categories/">TechNet Forums</a>
+      </li>
+      <li>
+        <a href="http://social.msdn.microsoft.com/Forums/en-US/categories/">MSDN Forums</a>
+      </li>
+      <li>
+        <a href="http://technet.microsoft.com/en-us/security/bulletin">Security Bulletins &amp; Advisories</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/common/international.aspx">International support solutions</a>
+      </li>
+      <li>
+        <a href="http://support.microsoft.com/select/default.aspx?target=assistance">Log a support ticket</a>
+      </li>
+      <li>
+        <a href="http://www.microsoft.com/technet/support/ee/ee_advanced.aspx">Look up event IDs and error codes</a>
+      </li>
+    </ul>
+    <ul id="Not an IT pro?">
+      <li>
+        <a href="http://support.microsoft.com/">Microsoft Customer Support</a>
+      </li>
+      <li>
+        <a href="http://answers.microsoft.com/en-us">Microsoft Community Forums</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div id="ux-header" class="Chrome ltr ">
+        <div class="upperBand">
+            <a href="http://technet.microsoft.com/" title="Microsoft TechNet"><img alt="Microsoft TechNet" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/BrandLogoTechNet.png"></a>               
+            <div class="upperRight">
+                <div class="controls">
+                    
+<a title="Change your language" id="SelectLocale" href="http://technet.microsoft.com/en-us/SelectLocale?fromPage=http%3a%2f%2ftechnet.microsoft.com%2fen-us%2flibrary%2fcc546518.aspx">United States (English)</a>
+        
+            
+            
+                    
+<a class="scarabLink" href="https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct=1366139006&rver=6.0.5276.0&wp=MCLBI&wlcxt=TechNet%24TechNet%24TechNet&wreply=http%3a%2f%2ftechnet.microsoft.com%2fen-us%2flibrary%2fcc546518.aspx&lc=1033&id=254354&mkt=en-US" title="Sign in">Sign in</a>
+                </div>
+                
+
+    
+
+<div class="SearchBox">
+              <form id="HeaderSearchForm" name="HeaderSearchForm" method="get" action="http://social.technet.microsoft.com/Search" onsubmit="return Epx.Controls.SearchBox.searchBoxOnSubmit(this, this.title);">
+            <input id="HeaderSearchTextBox" name="query" type="text" maxlength="200" onfocus="Epx.Controls.SearchBox.watermarkFocus(this, this.title, &#39;TextBoxSearch&#39;)" onblur="Epx.Controls.SearchBox.watermarkBlur(this, this.title, &#39;TextBoxSearch&#39;)" autocomplete="off" title="Search TechNet with Bing" style="color: rgb(170, 170, 170); font-style: italic;">
+            <input id="RefinementId" name="refinement" type="hidden" value="">
+            <button id="HeaderSearchButton" value="" type="submit" class="header-search-button" title="Search TechNet with Bing"></button>
+        <div id="SearchFlyoutContainer" style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; background-color: rgb(255, 255, 255); color: rgb(153, 153, 153); font-family: &#39;Segoe UI&#39;, &#39;Lucida Grande&#39;, Verdana, Arial, Helvetica, sans-serif; font-size: 14px;"><div id="SuggestionContainer"><ul style="list-style: none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></form>
+        
+    
+</div>
+
+            </div>
+        </div>
+        <div class="lowerBand">
+            <div class="ux-nav">
+                    <div class="menus">
+                        <a id="isd_print" href="http://technet.microsoft.com/en-us/library/cc546518(d=printer).aspx" title="Print/Export" rel="nofollow">
+                            <div class="clip38x23">
+                                <img src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ImageSprite.png" alt="" class="isd_print_arrow">
+                            </div>
+                        </a>
+                        <div id="isd_print_menu" class="isd_menu">
+                            <a href="http://technet.microsoft.com/en-us/library/cc546518(d=printer).aspx">Print This Topic</a>
+                            <a href="http://technet.microsoft.com/en-us/library/export/help/?returnUrl=%2fen-us%2flibrary%2fcc546518.aspx">Print Multiple Topics</a>
+                        </div>
+                    </div>
+                <div class="TocNavigation">
+   
+   <div class="toclevel1">
+          <a class="normal" href="http://technet.microsoft.com/" title="Home">Home</a>
+          <a class="active" href="http://technet.microsoft.com/library/default.aspx" title="Library">Library</a>
+          <a class="normal" href="http://social.technet.microsoft.com/wiki" title="Wiki">Wiki</a>
+          <a class="normal" href="http://technet.microsoft.com/bb291022" title="Learn">Learn</a>
+          <a class="normal" href="http://gallery.technet.microsoft.com/" title="Gallery">Gallery</a>
+          <a class="normal" href="http://technet.microsoft.com/bb403698" title="Downloads">Downloads</a>
+          <a class="normal" href="http://technet.microsoft.com/ms772425" title="Support">Support</a>
+          <a class="normal" href="http://social.technet.microsoft.com/forums/categories/" title="Forums">Forums</a>
+          <a class="normal" href="http://blogs.technet.com/" title="Blogs">Blogs</a>
+
+    </div>
+  
+</div>
+            </div>
+        </div>
+    </div>
+
+    
+
+        
+            <div id="body">
+                
+
+
+
+
+
+
+
+<div id="leftNav" class="leftNavResize1">
+
+
+
+<div id="tocnav">
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/aa991542.aspx" id="bb126093_TechNet.10_en-us" title="TechNet Library">TechNet Library</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc498713.aspx" id="cc440484_TechNet.10_en-us" title="Books, Magazines, and Columns">Books, Magazines, and Columns</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc268257.aspx" id="cc268257_TechNet.10_en-us" title="Microsoft Press Books">Microsoft Press Books</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc268268.aspx" id="cc268268_TechNet.10_en-us" title="SQL Server">SQL Server</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc293962.aspx" id="cc293962_TechNet.10_en-us" title="SQL Server 2005">SQL Server 2005</a>            </div>
+            <div class="toclevel0" data-toclevel="0" style="padding-left: 0px;">
+<a class="toc_collapsed" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc546503.aspx" id="jj871078_TechNet.10_en-us" title="MCITP Self-Paced Training Kit (Exam 70-442): Designing and Optimizing Data Access by Using Microsoft® SQL Server™ 2005">MCITP Self-Paced Training Kit (Exam 70-442): Designing and Optimizing Data Access by Using Microsoft® SQL Server™ 2005</a>            </div>
+            <div class="toclevel1" data-toclevel="1" style="padding-left: 17px;" data-childrenloaded="true">
+<a class="toc_expanded" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#"></a><a data-tochassubtree="true" href="http://technet.microsoft.com/en-us/library/cc546509.aspx" id="jj871080_TechNet.10_en-us" title="Chapter 6: Designing Transactions and Transaction Isolation">Chapter 6: Designing Transactions and Transaction Isolation</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546514.aspx" title="Before You Begin">Before You Begin</a>            </div>
+            <div class="toclevel2 current" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/Lesson 1  Understanding the Available Transaction Isolation Levels.htm" title="Lesson 1: Understanding the Available Transaction Isolation Levels">Lesson 1: Understanding the Available Transaction Isolation Levels</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546505.aspx" title="Lesson 2: Designing Transactions and Optimizing Locking">Lesson 2: Designing Transactions and Optimizing Locking</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546511.aspx" title="Case Scenario: Optimizing Locking">Case Scenario: Optimizing Locking</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546516.aspx" title="Suggested Practices">Suggested Practices</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546520.aspx" title="References">References</a>            </div>
+            <div class="toclevel2" data-toclevel="2" style="padding-left: 34px;">
+<span class="toc_empty"></span><a href="http://technet.microsoft.com/en-us/library/cc546507.aspx" title="Chapter Summary">Chapter Summary</a>            </div>
+</div>    
+    
+    
+    
+    
+    
+    
+    
+
+<a id="NavigationResize" href="javascript:void(0)" style="left: 280px; display: inline-block;">
+    <img class="cl_nav_resize_open" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ImageSprite.png" title="Expand" alt="Expand" style="">
+    <img class="cl_nav_resize_close" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ImageSprite.png" title="Minimize" alt="Minimize" style="display: none;">
+</a>
+
+
+
+</div>
+<div id="content" class="content" style="margin-left: 280px; width: auto;">
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+    <div id="ratingCounterSeperator" class="cl_lw_vs_seperator" style="display: none;"></div>
+
+    
+
+        
+
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">Lesson 1: Understanding the Available Transaction Isolation Levels</h1><div id="ratingCounter" style="display: block;">
+        <span id="rcA" class="ratingText">
+            3 out of 6 rated this helpful <span id="rateThisPrefix">- </span><a id="rateThisTopic" href="http://technet.microsoft.com/en-us/library/cc546518.aspx#feedback" title="Rate this topic">Rate this topic</a>
+            
+        </span>
+    </div>
+  
+
+	
+
+    
+
+    
+
+    
+
+    <div id="hspagebody">
+        <div>
+<div class="msl_sidebar">
+<p>Estimated lesson time: 60 minutes</p></div><br><br>
+<p>According to the SQL-99 standard, there are four transaction isolation levels: </p>
+<ul>
+<li>Read committed 
+</li><li>Read uncommitted 
+</li><li>Repeatable read 
+</li><li>Serializable</li></ul>
+<p>Each level protects against specific concurrency problems caused by access to the same data by multiple connections. Besides these four isolation levels, SQL Server 2005 also provides the following two additional isolation levels:</p>
+<ul>
+<li>Snapshot 
+</li><li>Read committed snapshot (which is a variation of the read committed isolation level rather than an entirely different level)</li></ul>
+<p>To set the active transaction isolation level for a connection, execute the SET TRANSACTION ISOLATION LEVEL statement. Note that the read committed snapshot isolation level cannot be set by this statement. How to enable this isolation level is covered later in this chapter. To retrieve the active isolation level for the current connection, execute the DBCC USER-OPTIONS statement and examine the row labeled “isolation level.” </p>
+<h2>Types of Concurrency Problems</h2>
+<p>There are several concurrency problems that can occur in a database management system when multiple users access the same data. The following is a short explanation of each concurrency problem. </p>
+<h3>Lost Update</h3>
+<p>A lost update can be interpreted in one of two ways. In the first scenario, a <em>lost update</em> is considered to have taken place when data that has been updated by one transaction is overwritten by another transaction, before the first transaction is either committed or rolled back. This type of lost update cannot occur in SQL Server 2005 because it is not allowed under any transaction isolation level. </p>
+<p>The other interpretation of a lost update is when one transaction (Transaction #1) reads data into its local memory, and then another transaction (Transaction #2) changes this data and commits its change. After this, Transaction #1 updates the same data based on what it read into memory before Transaction #2 was executed. In this case, the update performed by Transaction #2 can be considered a lost update.</p>
+<h3>Dirty Read</h3>
+<p>If data that has been changed by an open transaction is accessed by another transaction, a <em>dirty read</em> has taken place. A dirty read can cause problems because it means that a data manipulation language (DML) statement accessed data that logically does not exist yet or will never exist (if the open transaction is rolled back). All isolation levels except for read uncommitted protect against dirty reads.</p>
+<h3>Non-Repeatable Read</h3>
+<p>If a specific set of data is accessed more than once in the same transaction (such as when two different queries against the same table use the same WHERE clause) and the rows accessed between these accesses are updated or deleted by another transaction, a <em>non-repeatable read</em> has taken place. That is, if two queries against the same table with the same WHERE clause are executed in the same transaction, they return different results. The repeatable read, serializable, and snapshot isolation levels protect a transaction from non-repeatable reads.</p>
+<h3>Phantom Reads</h3>
+<p><em>Phantom reads</em> are a variation of non-repeatable reads. A phantom read is when two queries in the same transaction, against the same table, use the same WHERE clause, and the query executed last returns more rows than the first query. Only the serializable and snapshot isolation levels protect a transaction from phantom reads.</p>
+<h2>Using Locks to Solve Concurrency Problems</h2>
+<p>SQL Server uses <em>locks</em> stored in memory as a way to solve concurrency problems. There are several types of locks that are used. You can find more information about the available lock types in the article “Lock Compatibility” in SQL Server 2005 Books Online at . Following are the locks that you need to know about for this lesson:</p>
+<ul>
+<li><strong>Shared or S-locks</strong> Shared locks are sometimes referred to as <em>read locks</em>. There can be several shared locks on any resource (such as a row or a page) at any one time. Shared locks are compatible with other shared locks. 
+</li><li><strong>Exclusive or X-locks</strong> Exclusive locks are also referred to as write locks. Only one exclusive lock can exist on a resource at any time. Exclusive locks are not compatible with other locks, including shared locks. 
+</li><li><strong>Update or U-locks</strong> Update locks can be viewed as a combination of shared and exclusive locks. An update lock is used to lock rows when they are selected for update, before they are actually updated. Update locks are compatible with shared locks, but not with other update locks. Lesson 2, “Designing Transactions and Optimizing Locking,” discusses update locks further.</li></ul>
+<p>All isolation levels always issue exclusive locks for write operations and hold the locks for the entire duration of the transaction. In the next sections, you will look at how shared locks are handled by the different isolation levels. To see which locks are currently being held, you can query the sys.dm_tran_locks dynamic management view or execute the sys.sp_lock system stored procedure.</p>
+<h2>Choosing the Correct Isolation Level</h2>
+<p>Which lock types are acquired by SQL Server depends on the active transaction isolation level. The type of isolation level used can significantly affect both the performance and the results of executed queries.</p>
+<h3>Read Committed Isolation Level</h3>
+<p>The read committed transaction isolation level is the default isolation level for new connections in SQL Server. This isolation level guarantees that dirty reads do not occur in your transaction. A row is considered <em>dirty</em> when it has been deleted, updated, or inserted by another transaction in another connection where the transaction has not yet been committed or rolled back. If your connection is using the read committed isolation level and SQL Server encounters a dirty row while executing a DML statement, it will wait until the transaction that currently owns the row has been committed or rolled back before continuing execution. </p>
+<p>By default, there is no timeout for these waits. However, you can specify a timeout by executing the SET LOCK_TIMEOUT statement. This statement requires one parameter: the maximum number of milliseconds to wait. Note that if you set it to 0, it will not wait at all. Instead, you will immediately receive an error message, and the executing DML statement will be stopped and rolled back. </p>
+<p>In the read committed isolation level, shared locks are acquired for read operations, but they are released as soon as they have been granted. The shared locks are not held for the duration of the transaction. The following is an example of the behavior of this isolation level. The rows in the following table show the order in which the statements are executed. Note that the ALTER DATABASE statements are used to make sure that the correct settings are used for the database. These ALTER DATABASE statements require that no connections exist against the database.</p>
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_b9e868d7-15fe-4f25-b757-0e245f7ef880');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_b9e868d7-15fe-4f25-b757-0e245f7ef880" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION OFF;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table used in this example.
+CREATE TABLE Test.TestTran (Col INT NOT NULL); 
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_1" alt="Cc546518.table_C06623835_1(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC15173.png" title="Cc546518.table_C06623835_1(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_c28eef8f-c6ea-4673-8352-e62e8a9f6939');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_c28eef8f-c6ea-4673-8352-e62e8a9f6939" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example. 
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>The following code sample uses the SET LOCK_TIMEOUT setting together with a <em>try/catch</em> block to return only the rows found before the first dirty row is encountered by the SELECT statement. </p>
+<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e1e3a0e9-dfac-4bb1-b2ee-ed064912face');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e1e3a0e9-dfac-4bb1-b2ee-ed064912face" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION OFF;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table used in this example.
+CREATE TABLE Test.TestTran (Col INT NOT NULL);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_2" alt="Cc546518.table_C06623835_2(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC71162.png" title="Cc546518.table_C06623835_2(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-4" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_a58c70c2-0b25-471a-8f47-212aa15c6343');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_a58c70c2-0b25-471a-8f47-212aa15c6343" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example. 
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3>Read Uncommitted Isolation Level</h3>
+<p>The read uncommitted isolation level is tempting to consider because it can provide great performance benefits. Unfortunately, this is at the expense of returning valid results. This isolation level only guarantees that a transaction does not experience lost updates. When executing a DML statement in the read uncommitted isolation level, SQL Server will allow dirty rows to be returned. This might cause you to read data that has never existed because the data that was read was inserted or updated by another transaction that was later rolled back. </p>
+<p>You should consider using this isolation level only in routines where the issue of dirty reads is not a problem. Such routines usually return information that is not directly used as a basis for decisions. A typical example where dirty reads might be allowed is for queries that return data that are only used in lists in the application (such as a list of customers) or if the database is only used for read operations. </p>
+<p>The read uncommitted isolation level is by far the best isolation level to use for performance, as it does not wait for other connections to complete their transactions when it wants to read data that these transactions have modified. In the read uncommitted isolation level, shared locks are not acquired for read operations; this is what makes dirty reads possible. This fact also reduces the work and memory required by the SQL Server lock manager. Because shared locks are not acquired, it is no problem to read resources locked by exclusive locks. However, while a query is executing in the read uncommitted isolation level, another type of lock called a <em>schema stability lock</em> (Sch-S) is acquired to prevent Data Definition Language (DDL) statements from changing the table structure. Below is an example of the behavior of this isolation level. This example shows the behavior of the read uncommitted isolation level.</p>
+<div id="code-snippet-5" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_21ee34f2-c5be-4727-9aec-cb2e6e4abd13');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_21ee34f2-c5be-4727-9aec-cb2e6e4abd13" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION OFF;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table used in this example.
+CREATE TABLE Test.TestTran (Col INT NOT NULL);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_3" alt="Cc546518.table_C06623835_3(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC123446.png" title="Cc546518.table_C06623835_3(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-6" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_fb31e96f-7ca0-446d-b2df-ab3170b6a8fd');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_fb31e96f-7ca0-446d-b2df-ab3170b6a8fd" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example. 
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3>Repeatable Read Isolation Level</h3>
+<p>In the repeatable read isolation level, SQL Server not only guarantees that dirty reads do not happen in your transaction, but it also guarantees that if you issue two DML statements against the same table with the same WHERE clause (one query could be a select and the next could be an update), both queries will return the same results. This is not entirely true because the latter queries might return more rows than the first query. A repeatable read protects against deletes and updates of accessed rows, but not against inserts that match the specific WHERE clause, which is the phantom rows concurrency problem. Note that phantom rows might also occur if you use aggregate functions, although it is not as easy to detect. </p>
+<p>The first query might, for example, include the sum over four rows, while the second query includes the sum over five rows. One important thing to note is that, because the repeatable read isolation level is achieved using blocking of the other transaction, the use of this isolation level greatly increases the number of locks held for the duration of the transaction. This, in turn, can cause serious performance problems due to blocked transactions. It also greatly increases the risk for <em>deadlocks</em>. A deadlock is encountered if different connections are waiting for locks held by each other. In the repeatable read isolation level, shared locks are acquired for read operations and are also held for the duration of the transaction, not allowing changes to the data by other transactions. The following example shows the behavior of the repeatable read isolation level:</p>
+<div id="code-snippet-7" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_57f22679-16cc-48da-bce7-3aaf8084d41d');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_57f22679-16cc-48da-bce7-3aaf8084d41d" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION OFF;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table including some example rows used in this example.
+CREATE TABLE Test.TestTran (Col1 INT NOT NULL, Col2 INT NOT NULL);
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1); 
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 2);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_4" alt="Cc546518.table_C06623835_4(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC159629.png" title="Cc546518.table_C06623835_4(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-8" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_02b7ee2f-27e8-41ca-be4e-dfc0f4278a1e');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_02b7ee2f-27e8-41ca-be4e-dfc0f4278a1e" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example. 
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3>Serializable Isolation Level</h3>
+<p>The serializable isolation level guarantees that none of the concurrency problems mentioned earlier can occur. Because this isolation level also protects from the occurrence of phantom reads through blocking, the use of the serializable isolation level increases the risk for blocked transactions and deadlocks even more than using the repeatable read isolation level. This isolation level guarantees that if you issue two DML statements against the same table with the same WHERE clause, both queries will return exactly the same results, including the same number of rows. To protect the transaction from inserts, SQL Server will need to lock a range of an index over a column that is included in the WHERE clause with shared locks. If such an index does not exist, SQL Server will need to lock the entire table. The following example shows the behavior of the serializable isolation level:</p>
+<div id="code-snippet-9" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_949605fd-e4a4-45fd-8193-ed3b254b4865');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_949605fd-e4a4-45fd-8193-ed3b254b4865" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION OFF;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table including some example rows used in this example. 
+CREATE TABLE Test.TestTran (Col1 INT NOT NULL, Col2 INT NOT NULL); 
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1); 
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 2);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_5" alt="Cc546518.table_C06623835_5(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC22768.png" title="Cc546518.table_C06623835_5(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-10" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_78cb2b17-1067-4446-b1f2-9ba538e0f6df');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_78cb2b17-1067-4446-b1f2-9ba538e0f6df" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example. 
+DROP TABLE Test.TestTran; 
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3>Snapshot Isolation Level</h3>
+<p>SQL Server 2005 introduces the snapshot isolation level in addition to the four isolation levels defined by the SQL-99 standard. This isolation level can be very useful because it protects against all of the previously mentioned concurrency problems, just as the serializable isolation level does. However, it does not provide this protection by blocking access to rows by other transactions; it does so by storing versions of rows while the transaction is active as well as tracking when a specific row was inserted. This means that while in a transaction in the snapshot isolation level, depending on what has occurred since the transaction was started, you might not be looking at the current version of a row, but rather an older version of the row presenting it as it looked when the transaction first accessed it. Because of this, when working in the snapshot isolation level, the transaction can be considered to be executing in an “alternate reality.” For more information on the snapshot isolation level, see the article “Using Snapshot Isolation” at .</p>
+<p>If a transaction is started by executing the BEGIN TRANSACTION statement (the transaction is actually started when the first statement within it is executed) at 5:02 A.M., for example, it will only return data from this exact point in time, independent of how many rows are being deleted, inserted, or updated while the transaction is active. The older row versions are stored as a linked list of rows in the <em>tempdb</em> system database. There can be multiple versions of a single row at any point in time in order to service multiple snapshot transactions starting at different points in time. </p>
+<p>When snapshot transactions are being used, the <em>tempdb</em> database experiences additional activity and might require additional disk space. Because of storage of row versions, write operations will suffer some performance degradation. The snapshot isolation level can be particularly useful for read intensive databases and for databases that have performance problems caused by blocking. If you are looking for performance improvement only and can accept dirty reads, remember that the read uncommitted isolation level provides the best performance. </p>
+<h3>Using the Snapshot Isolation Level</h3>
+<p>To be able to use the snapshot isolation level in a database, the database option ALLOW_SNAPSHOT_ISOLATION must first be set to ON. This database option requires that there are no connections to the database when it is set. It is the setting of this database option, rather than the start of a transaction in the snapshot isolation level, that starts the process of generating and storing row versions. This is notable because it means that you pay the performance penalty of generating row versions for all transactions in the database, not just for transactions that use the snapshot isolation level. This occurs because the old version of a row must have been made available when the row was changed or deleted, even if the change was made by a transaction in an isolation level other than snapshot. In the snapshot isolation level, shared locks are not acquired for read operations because row versions are used instead. The following example shows the behavior of the snapshot isolation level:</p>
+<div id="code-snippet-11" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_c934d9f7-ce21-4c55-944e-3647217df967');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_c934d9f7-ce21-4c55-944e-3647217df967" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION ON; 
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table including some example rows used in this example. 
+CREATE TABLE Test.TestTran (Col1 INT NOT NULL, Col2 INT NOT NULL); 
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1); 
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 2); 
+INSERT Test.TestTran (Col1, Col2) VALUES (2, 1);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_6" alt="Cc546518.table_C06623835_6(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC150146.png" title="Cc546518.table_C06623835_6(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-12" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1b0586a5-2c98-458b-bef9-72e2cba73309');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1b0586a5-2c98-458b-bef9-72e2cba73309" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example.
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>To track snapshot transactions and row versions, you can query the dynamic management views sys.dm_tran_active_snapshot_database_transactions (which shows the current active snapshot transactions) and sys.dm_tran_version_store (which shows you the storage for row versions).</p>
+<p>
+</p><h4>Update Conflicts</h4>There is an additional concurrency problem not yet mentioned because it is specific to the snapshot isolation level. If a specific row (or version of a row) is read in snapshot isolation, SQL Server guarantees that you will get the same row if you issue the query later in the transaction. What happens if the later query is an UPDATE or DELETE statement and the row has changed since it was read the first time? SQL Server can’t use the current version of the row as the base for the update because it would break the promise of the row not changing while the snapshot transaction is active. And it can’t use the row version used by the snapshot transaction as a base because the other transaction that updated or deleted the row would experience a lost update (which is not allowed or supported in SQL Server). Instead, the snapshot transaction is rolled back, and it receives the following error message: 
+<p></p>
+<div id="code-snippet-13" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_ab79af6c-3b77-41f3-a7d6-d03c31ff4f9a');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_ab79af6c-3b77-41f3-a7d6-d03c31ff4f9a" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Msg 3960, Level 16, State 4, Line 1
+Snapshot isolation transaction aborted due to update conflict. You cannot use snapshot
+isolation to access table 'Test.TestTran' directly or indirectly in database 'TestDatabase' to
+update, delete, or insert the row that has been modified or deleted by another transaction.
+Retry the transaction or change the isolation level for the update/delete statement.
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Of course, this error can be caught in a <em>try/catch</em> block, but then the transaction state (XACT_STATE()) will be set to uncommittable, meaning that the transaction must be rolled back. To find concurrent snapshot transactions that might experience update conflicts, you can query the sys.dm_tran_transactions_snapshot dynamic management view. Here is an example of an update conflict occurrence:</p>
+<div id="code-snippet-14" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_a101b277-d896-4949-b686-3bb7d8ec8363');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_a101b277-d896-4949-b686-3bb7d8ec8363" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION ON;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF; 
+-- Table including some example rows used in this example. 
+CREATE TABLE Test.TestTran (Col1 INT NOT NULL, Col2 INT NOT NULL);
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_7" alt="Cc546518.table_C06623835_7(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC1997.png" title="Cc546518.table_C06623835_7(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-15" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_3a2bc461-dd84-4a09-a6b7-d474fc3adef5');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_3a2bc461-dd84-4a09-a6b7-d474fc3adef5" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example.
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Apparently, because of update conflicts, the snapshot isolation level is not the best choice if you are reading and later updating a specific set of rows within a transaction. It is, however, interesting to know that regardless of whether rows changed, you would not experience an update conflict if you execute an INSERT…SELECT statement within the snapshot transaction.</p>
+<p>If you must issue an UPDATE or DELETE statement within a snapshot transaction, consider issuing it within a <em>try/catch</em> block. You can also consider switching back to the read committed isolation level before you issue the update. This will block the transaction if an open transaction has updated or deleted the rows that need to be accessed and, if the transaction is not blocked, the update will use the data from the current row version rather than the one in your snapshot. Remember that the update might experience phantom rows, so you need to specify exactly which rows to update (by referencing the primary key column in your WHERE clause). </p>
+<p>You can also combine the two isolation levels by reading from the snapshot isolation level and writing to the read committed isolation level. If a transaction is implemented this way, other transactions cannot be considered durable, because they can have their committed data overwritten by old data. (This is also an alternative way of interpreting the lost update concurrency problem.) Here is an example of this scary but feasible implementation. In this case, the transaction isolation level is set for the UPDATE statement using a table locking hint.</p>
+<div id="code-snippet-16" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_8e3d2617-58bd-417a-8f2c-b05900074f41');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_8e3d2617-58bd-417a-8f2c-b05900074f41" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION ON;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT OFF;
+-- Table including some example rows used in this example.
+CREATE TABLE Test.TestTran (
+	PKCol INT IDENTITY(1,1) PRIMARY KEY
+	,Col1 INT NOT NULL
+	,Col2 INT NOT NULL
+);
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_8" alt="Cc546518.table_C06623835_8(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC113799.png" title="Cc546518.table_C06623835_8(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-17" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_88e88014-aaee-4aee-98d9-bd9d982693a4');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_88e88014-aaee-4aee-98d9-bd9d982693a4" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example.
+DROP TABLE Test.TestTran;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3>Read Committed Snapshot Isolation Level</h3>
+<p>To the four isolation levels defined by the SQL-99 standard, SQL Server 2005 adds the read committed snapshot isolation level. This isolation level is a bit different from the previous isolation levels because it cannot be set using the SET TRANSACTION ISOLATION LEVEL statement; it is set by setting the database option READ_COMMITTED_SNAPSHOT to ON. You could also say that this isn’t really its own transaction isolation level, but rather a variation of the read committed isolation level. By changing this database option, the behavior of the read committed isolation level is changed to read committed snapshot. The read committed isolation level described earlier no longer exists for the specific database (although it can be set by using a table locking hint that we will describe later in this lesson). For more information about the read committed snapshot isolation level, see the article “Using Snapshot Isolation” at .</p>
+<div class="msl_sidebar">
+<p>
+</p><h4>IMPORTANT</h4><strong>The READ_COMMITTED_SNAPSHOT database setting</strong> 
+<p>Setting the database option READ_COMMITTED_SNAPSHOT to ON for an existing database changes the behavior of the read committed isolation level. It is very important to thoroughly test the database after setting this option to avoid introducing bugs into your application.</p>
+<p></p></div><br><br>
+<p>The read committed snapshot isolation level is a combination of the isolation levels read committed and snapshot. Because of this, the database option READ_COMMITTED_SNAPSHOT will also cause SQL Server to start generating and storing row versions in the <em>tempdb</em> system database. As opposed to the read committed isolation level, in this isolation level, readers are not blocked by writers, and vice versa. This is implemented through the reading of the latest available version of a row, in case the row is locked by another transaction that updated or deleted the row but had not yet completed. </p>
+<p>Isn’t this what snapshot isolation does? No, not exactly. In the read committed snapshot case, SQL Server always reads the latest version of the row; it doesn’t care when the transaction was started. This means that it does not return dirty rows but can still encounter nonrepeatable and phantom reads. In the read committed snapshot isolation level, shared locks are not acquired for read operations because row versions are used instead. </p>
+<p>So, if you already pay the price of generating row versions, why don’t you just use the snapshot isolation level? First, in this isolation level, SQL Server doesn’t need to find a particular version of a row; it just needs to find the last committed version. Also, update conflicts don’t occur in the read committed snapshot isolation level. This is because SQL Server hasn’t guaranteed that it will only return data that appears the way it did when the transaction started, so SQL Server will not break any guarantee if it uses the new committed version of a row. In this isolation level, instead of getting the update conflict error, SQL Server will just block the connection until the other connection releases its locks, and then it will execute the update. Here is an example:</p>
+<div id="code-snippet-18" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_d567fc72-e8dc-42ba-9c4f-bbf2a7cd977f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_d567fc72-e8dc-42ba-9c4f-bbf2a7cd977f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>ALTER DATABASE &lt;current_database&gt; SET ALLOW_SNAPSHOT_ISOLATION ON;
+ALTER DATABASE &lt;current_database&gt; SET READ_COMMITTED_SNAPSHOT ON; 
+-- Table including some example rows used in this example.
+CREATE TABLE Test.TestTran (Col1 INT NOT NULL, Col2 INT NOT NULL);
+INSERT Test.TestTran (Col1, Col2) VALUES (1, 1);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p class="tableimage"><img id="table_C06623835_9" alt="Cc546518.table_C06623835_9(en-us,TechNet.10).png" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/IC104030.png" title="Cc546518.table_C06623835_9(en-us,TechNet.10).png" xmlns=""></p>
+<div id="code-snippet-19" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_2cc06004-7acd-4783-ac0c-9ff4e9a49e98');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_2cc06004-7acd-4783-ac0c-9ff4e9a49e98" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Drop the table used in this example.
+DROP TABLE Test.TestTran; 
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="msl_sidebar">
+<p>
+</p><h4>Exam Tip</h4>The difference in behavior between snapshot isolation and read committed snapshot is an important part of this exam. 
+<p></p></div><br><br>
+<h2>Avoiding Extensive Blocking</h2>
+<p>There are a few easy rules for reducing the risk of blocking issues caused by extensive locking:</p>
+<ul>
+<li>Use the least-restrictive isolation level possible. Consider whether you can make use of the read uncommitted isolation level. 
+</li><li>Avoid using the repeatable read and serializable isolation levels. 
+</li><li>Keep your transactions as short as possible (measured in execution time, not number of T-SQL code lines). 
+</li><li>If you mostly read data, consider using the snapshot and read committed snapshot isolation levels.</li></ul>
+<h2>Lab: Comparing Transaction Isolation Levels</h2>
+<p>This lab contains two exercises. In the first exercise, you investigate how locks are acquired in the read committed isolation level, which is the default isolation level. In the second exercise, you perform the same tests against the read committed snapshot isolation level.</p>
+<div class="msl_sidebar">
+<p>
+</p><h4>IMPORTANT </h4><strong>Lab requirements</strong> 
+<p>You will need to have SQL Server 2005 and the <em>Adventure Works</em> database installed before you can complete this lab. Refer to the Introduction for setup instructions.</p>
+<p></p></div><br><br>
+<h4>Exercise 1: Acquire Locks by Using the Read Committed Isolation Level</h4>
+<ol>
+<li>Open Microsoft SQL Server Management Studio, and connect to an instance of SQL Server 2005. 
+</li><li>In a new query window, which will be referred to as Connection 1, type and execute the following SQL statements to create the <em>TestDB</em> database, the Test schema, and the table that you will use in this exercise: 
+<div id="code-snippet-20" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e348c7df-4bd9-47d7-b380-214adf9f91fb');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e348c7df-4bd9-47d7-b380-214adf9f91fb" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 1 – Session ID: &lt;put @@SPID result here&gt;
+/* Leave the above line to easily see that this query window
+belongs to Connection 1. */
+SELECT @@SPID;
+GO
+CREATE DATABASE TestDB;
+GO
+USE TestDB;
+GO
+CREATE SCHEMA Test;
+GO
+CREATE TABLE Test.TestTable (
+	Col1 INT NOT NULL
+	,Col2 INT NOT NULL
+);
+INSERT Test.TestTable (Col1, Col2) VALUES (1,10);
+INSERT Test.TestTable (Col1, Col2) VALUES (2,20);
+INSERT Test.TestTable (Col1, Col2) VALUES (3,30);
+INSERT Test.TestTable (Col1, Col2) VALUES (4,40);
+INSERT Test.TestTable (Col1, Col2) VALUES (5,50);
+INSERT Test.TestTable (Col1, Col2) VALUES (6,60);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 2, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-21" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_decb2d9c-4684-405a-a2d2-01527981b57c');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_decb2d9c-4684-405a-a2d2-01527981b57c" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 2 – Session ID: &lt;put @@SPID result here&gt;
+/* Leave the above line to easily see that this query window
+belongs to Connection 2. */
+SELECT @@SPID;
+GO
+USE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open a third query window, which will be referred to as Connection 3, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-22" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_08a89b11-3432-433b-9894-18bf2fe9aa8f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_08a89b11-3432-433b-9894-18bf2fe9aa8f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 3
+/* Leave the above line to easily see that this query window
+belongs to Connection 3. */
+USE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 1, execute the following SQL statements to start a transaction in the read committed transaction isolation level, and read a row from the test table (but do not commit the transaction!). 
+<div id="code-snippet-23" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_40bd8293-7a37-440e-b49d-955a50e10fa9');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_40bd8293-7a37-440e-b49d-955a50e10fa9" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 1
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	SELECT * FROM Test.TestTable
+	WHERE Col1 = 1;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>To see which locks have been acquired by the transaction in Connection 1, open Connection 3, and execute the following SELECT statement. In the line of code that contains <em>@@SPID of Connection 1</em>&gt;, be sure to replace this with the ID value returned by the code executed in step 2 of this exercise. 
+<div id="code-snippet-24" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_8a1845b4-6d25-47a7-9393-dda02cf08a9f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_8a1845b4-6d25-47a7-9393-dda02cf08a9f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT
+	resource_type
+	,request_mode
+	,request_status
+FROM sys.dm_tran_locks
+WHERE resource_database_id = DB_ID('TestDB')
+	AND request_session_id = &lt;@@SPID of Connection 1&gt;
+	AND request_mode IN ('S', 'X')
+	AND resource_type &lt;&gt; 'DATABASE';
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Why doesn’t Connection 1 have a shared lock on the row that it read using the SELECT statement?</p>
+</li><li>In Connection 1, execute the following SQL statement to end the started transaction: 
+<div id="code-snippet-25" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_aeacbf38-837c-4705-b4f4-e4a9599ae520');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_aeacbf38-837c-4705-b4f4-e4a9599ae520" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 1
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 2, execute the following SQL statements to start a transaction, and acquire an exclusive lock on one row in the test table. 
+<div id="code-snippet-26" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_b4b52626-4d72-4c71-9aa6-d71e70d48256');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_b4b52626-4d72-4c71-9aa6-d71e70d48256" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 2
+BEGIN TRAN;
+	UPDATE Test.TestTable SET Col2 = Col2 + 1
+	WHERE Col1 = 1;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 1, execute the following transaction to try to read the row that has been updated (but not committed) by Connection 2. After you execute the code in this step, move on to the next step, as this connection will now be blocked. 
+<div id="code-snippet-27" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e053919c-c379-4381-892b-efdec6de9cec');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e053919c-c379-4381-892b-efdec6de9cec" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 1
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	SELECT * FROM Test.TestTable
+	WHERE Col1 = 1;
+-- This SELECT statement will be blocked!
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>To see which locks have been acquired by the transaction in Connection 1, open Connection 3, and execute the following SELECT statement. In the line of code that contains <em>@@SPID of Connection 1</em>, be sure to replace this with the ID value returned by the code executed in step 2 of this exercise. 
+<div id="code-snippet-28" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_7557bc22-2dfe-4ec9-a8cf-232cc9459c42');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_7557bc22-2dfe-4ec9-a8cf-232cc9459c42" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT
+	resource_type
+	,request_mode
+	,request_status
+FROM sys.dm_tran_locks
+WHERE resource_database_id = DB_ID('TestDB')
+	AND request_session_id = &lt;@@SPID of Connection 1&gt;
+	AND request_mode IN ('S', 'X')
+	AND resource_type &lt;&gt; 'DATABASE';
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Here you can see that Connection 1 tries to acquire a shared lock on the row.</p>
+</li><li>In Connection 2, execute the following SQL statements to end the transaction started earlier. 
+<div id="code-snippet-29" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1361df11-72c0-4e28-8887-1db453463a21');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1361df11-72c0-4e28-8887-1db453463a21" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Now, first have a look in Connection 1 and note that the SELECT statement has been completed. Switch to Connection 3, and execute its SELECT statement again to see which locks are now acquired by the transaction in Connection 1. In the line of code that contains <em>@@SPID of Connection 1</em>&gt;, be sure to replace this with the ID value returned by the code executed in step 2 of this exercise. 
+<div id="code-snippet-30" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_849e260f-59f8-4e45-b868-7a558a9ca7c9');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_849e260f-59f8-4e45-b868-7a558a9ca7c9" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT
+	resource_type
+	,request_mode
+	,request_status
+FROM sys.dm_tran_locks
+WHERE resource_database_id = DB_ID('TestDB')
+	AND request_session_id = &lt;@@SPID of Connection 1&gt;
+	AND request_mode IN ('S', 'X')
+	AND resource_type &lt;&gt; 'DATABASE';
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>You should now see that no locks are acquired by Connection 1. This is because, after acquiring the lock on the row, Connection 1 released the lock.</p>
+</li><li>Close the three query windows for Connections 1, 2, and 3. Open a new query window, and execute the following SQL statement to clean up after this exercise: 
+<div id="code-snippet-31" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_782fa3f8-6500-489f-aa33-9916df2a7f8f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_782fa3f8-6500-489f-aa33-9916df2a7f8f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE master; 
+DROP DATABASE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</li></ol>
+<h4>Exercise 2: Acquire Locks by Using the Read Committed Snapshot Isolation Level</h4>
+<p>In this exercise, you execute the same type of transactions as in the previous exercise, but use the read committed snapshot transaction isolation level.</p>
+<ol>
+<li>Open SQL Server Management Studio, and connect to an instance of SQL Server 2005. 
+</li><li>In a new query window, which will be referred to as Connection 1, type and execute the following SQL statements to create the <em>TestDB</em> database, the Test schema, and the table that will be used in this exercise: 
+<div id="code-snippet-32" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_f1077379-d6e6-4ff4-b980-7717e8b2945b');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_f1077379-d6e6-4ff4-b980-7717e8b2945b" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 1
+/*  Leave the above line to easily see that this query window
+belongs to Connection 1. */
+CREATE DATABASE TestDB;
+GO
+ALTER DATABASE TestDB SET READ_COMMITTED_SNAPSHOT ON;
+GO
+USE TestDB;
+GO
+CREATE SCHEMA Test;
+GO
+CREATE TABLE Test.TestTable (
+	Col1 INT NOT NULL
+	,Col2 INT NOT NULL
+);
+INSERT Test.TestTable (Col1, Col2) VALUES (1,10);
+INSERT Test.TestTable (Col1, Col2) VALUES (2,20);
+INSERT Test.TestTable (Col1, Col2) VALUES (3,30);
+INSERT Test.TestTable (Col1, Col2) VALUES (4,40);
+INSERT Test.TestTable (Col1, Col2) VALUES (5,50);
+INSERT Test.TestTable (Col1, Col2) VALUES (6,60);
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open another query window, which will be referred to as Connection 2, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-33" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_22149d37-52ef-44bc-a1f4-dc2c98343998');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_22149d37-52ef-44bc-a1f4-dc2c98343998" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2 
+&gt;/* Leave the above line to easily see that this query window
+belongs to Connection 2. */
+USE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>Open a third query window, which will be referred to as Connection 3, and type and execute the following SQL statement to prepare the connection: 
+<div id="code-snippet-34" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_003755ef-638e-4c86-a419-0851008bc515');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_003755ef-638e-4c86-a419-0851008bc515" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 3 
+/* Leave the above line to easily see that this query window
+belongs to Connection 3. */
+USE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 2, execute the following SQL statements to start a transaction, and acquire an exclusive lock on one row in the test table. 
+<div id="code-snippet-35" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_d4f1df44-6aac-4f76-bd8d-38011e78a92b');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_d4f1df44-6aac-4f76-bd8d-38011e78a92b" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 2
+BEGIN TRAN;
+	UPDATE Test.TestTable SET Col2 = Col2 + 1
+	WHERE Col1 = 1;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 1, execute the following transaction to try to read the row that has been updated (but not committed) by Connection 2. 
+<div id="code-snippet-36" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_60077df3-0613-4ef9-8f25-aa524738788c');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_60077df3-0613-4ef9-8f25-aa524738788c" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>-- Connection 1
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRAN;
+	SELECT * FROM Test.TestTable
+	WHERE Col1 = 1;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Why wasn’t the SELECT statement blocked by Connection 2? Which values were returned by the query, the values that existed before or after the update?</p>
+</li><li>To see which locks have been acquired by the transaction in Connections 1 and 2, open Connection 3, and execute the following SELECT statement: 
+<div id="code-snippet-37" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e9365191-e833-49a0-900b-b5750884af2f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e9365191-e833-49a0-900b-b5750884af2f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT
+	resource_type
+	,request_mode
+	,request_status
+FROM sys.dm_tran_locks
+WHERE resource_database_id = DB_ID('TestDB')
+	AND request_mode IN ('S', 'X')
+	AND resource_type &lt;&gt; 'DATABASE';
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>To see if any row versions are available for the <em>TestDB</em> database, execute the following query in Connection 3: 
+<div id="code-snippet-38" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_989199cc-e0e7-4b2b-82c9-c4001254e033');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_989199cc-e0e7-4b2b-82c9-c4001254e033" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>SELECT * FROM sys.dm_tran_version_store 
+WHERE database_id = DB_ID('TestDB'); 
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In Connection 2, execute the following SQL statements to end the transaction started earlier. 
+<div id="code-snippet-39" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_473a0baf-47fb-4d5b-af77-a89a3053ee99');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_473a0baf-47fb-4d5b-af77-a89a3053ee99" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 2
+COMMIT TRAN;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+</li><li>In the open transaction in Connection 1, execute the SELECT statement again. 
+<div id="code-snippet-40" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_309b9238-33cb-48b0-ab0b-8cd56927bc0e');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_309b9238-33cb-48b0-ab0b-8cd56927bc0e" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>Connection 1
+SELECT * FROM Test.TestTable
+WHERE Col1 = 1;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Which values are now returned, the values that existed before or after the update? Did this SELECT statement return dirty reads? Did the first SELECT statement in Connection 1 return dirty reads?</p>
+</li><li>Close the three query windows for Connection 1, 2, and 3. Open a new query window, and execute the following SQL statement to clean up after this exercise: 
+<div id="code-snippet-41" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_ec9cced6-dd4a-42e7-aa62-225774e6e8a5');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_ec9cced6-dd4a-42e7-aa62-225774e6e8a5" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>USE master;
+DROP DATABASE TestDB;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</li></ol>
+<div class="msl_boxed">
+<p>
+</p><h3>Quick Check</h3>
+<ol>
+<li>Which isolation level or levels protect against phantom rows? 
+</li><li>Which isolation level or levels do not acquire shared locks? 
+</li><li>Where are old versions of rows in snapshot isolation stored? 
+</li><li>Which is the default isolation level?</li></ol>
+<h4>Quick Check Answers</h4>
+<ol>
+<li>The serializable and snapshot isolation levels protect against phantom rows. 
+</li><li>Snapshot, read committed snapshot, and the read uncommitted isolation level do not acquire shared locks. 
+</li><li>Old versions of rows in snapshot isolation are stored in the <em>tempdb</em> system database. 
+</li><li>The read committed isolation level is the default isolation level.</li></ol>
+<p></p></div><br><br>
+
+<a href="http://technet.microsoft.com/en-us/library/cc546514.aspx">&lt; Back</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://technet.microsoft.com/en-us/library/cc546505.aspx">Next &gt;</a></div>    <p>&nbsp;</p><p>&nbsp;</p><p>© Microsoft. All Rights Reserved.</p>
+    </div>
+</div>
+
+
+
+
+
+<div id="contentFeedback">
+    <form method="post" action="http://technet.microsoft.com/en-us/library/feedback/add/cc546518.aspx">
+        <input name="__RequestVerificationToken" type="hidden" value="dgM0tockLhKbQonn32el6Hun6qINF-x3DlgySzYo2exDIyfal29fQA_6pkES9hRj6wfCHJZzkWHViH13uyuc3t4N48cq7g_-O3vUXsEDglxMsDcQM8vhFcNbynbhlNy2_pag6w2">
+    <div id="contentFeedbackContainer">
+        <div class="FeedbackTitleContainer">
+            <a name="feedback"></a>
+        Did you find this helpful?
+            <input id="rdIsUsefulYes" name="rdIsUseful" type="radio" value="1" onclick="toggleContentFeedback(&#39;Yes&#39;);"><label for="rdIsUsefulYes">Yes</label>
+            <input id="rdIsUsefulNo" name="rdIsUseful" type="radio" value="0" onclick="toggleContentFeedback(&#39;No&#39;);"><label for="rdIsUsefulNo">No</label>
+        
+        </div>
+        
+            <div id="contentFeedbackQAContainer">
+                
+                    <div id="feedbackListNoContainer" class="FeedbackListContainer">
+                        
+                            <div>
+                                <input id="chkbxNo201" name="chkbxNo" type="checkbox" value="201">
+                                <label for="chkbxNo201">Not accurate</label>
+                            </div>
+                        
+                            <div>
+                                <input id="chkbxNo202" name="chkbxNo" type="checkbox" value="202">
+                                <label for="chkbxNo202">Not enough depth</label>
+                            </div>
+                        
+                            <div>
+                                <input id="chkbxNo203" name="chkbxNo" type="checkbox" value="203">
+                                <label for="chkbxNo203">Need more code examples</label>
+                            </div>
+                        
+                    </div>
+                
+                <div class="FeedbackTellUsMoreContainer">
+                    <textarea id="feedbackText" name="feedbackText" class="TellUsMoreTextBoxSearchLoaded" onfocus="WatermarkFocus(this, &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearch&#39;)" onblur="WatermarkBlur(this, &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearchLoaded&#39;)" onmouseover="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)" onkeydown="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)" onkeyup="TextBoxCharactersCounter(this, document.getElementById(&#39;feedbackTextCounter&#39;), 1500)">Tell us more...</textarea>
+                </div>
+                <span class="counter">(<span id="feedbackTextCounter">1500</span> characters remaining)</span>
+                <input type="hidden" id="returnUrl" name="returnUrl" value="http://technet.microsoft.com/en-us/library/cc546518.aspx">
+                <input type="submit" id="submit" value="Submit" title="Click to Submit Feedback" onclick="WatermarkOnSubmit(document.getElementById(&#39;feedbackText&#39;), &#39;Tell us more...&#39;, &#39;TellUsMoreTextBoxSearch&#39;)">
+                <div style="clear: both;"></div>
+            </div>  
+        
+    </div>
+    </form>
+</div>
+    
+
+
+
+</div>
+
+
+            </div>
+            <div class="clear"></div>
+        
+            
+    
+   <div id="ux-footer" class="Chrome ltr">
+
+    <div class="ux-footer-clear"></div>
+    <div id="footerRight">
+        <div id="FooterLogoContainer"><div id="FooterLogo"></div></div>
+        <div id="FooterCopyright">© 2013 Microsoft</div>
+    </div>
+    <div id="footerLeft">
+        <div id="footerProfileLink">
+        <div data-fragmentname="ManageProfileLink" id="Fragment_ManageProfileLink" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="http://go.microsoft.com/?linkid=8786243" xmlns="http://www.w3.org/1999/xhtml">Manage Your Profile</a>
+</div>
+        </div>
+        <div id="footerGroup">
+            <div id="LinkGroup">
+                <div id="Links1"><div data-fragmentname="FooterLinks" id="Fragment_FooterLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="Links">
+      <ul class="LinkColumn horizontal">
+        <li>
+          <a href="http://technet.microsoft.com/cc543196.aspx" xmlns="http://www.w3.org/1999/xhtml">Newsletter</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://technet.microsoft.com/cc512759.aspx" xmlns="http://www.w3.org/1999/xhtml">Contact Us</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://go.microsoft.com/fwlink/?linkid=248681" xmlns="http://www.w3.org/1999/xhtml">Privacy Statement</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://technet.microsoft.com/cc300389.aspx" xmlns="http://www.w3.org/1999/xhtml">Terms of Use</a>
+        </li>
+        <li>
+          <div class="LinksDivider">|</div>
+          <a href="http://www.microsoft.com/About/Legal/EN/US/IntellectualProperty/Trademarks/EN-US.aspx" xmlns="http://www.w3.org/1999/xhtml">Trademarks</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div></div>
+            </div>
+            <div id="Feedback">
+                <div class="feedbackListItem">
+                    <div class="LinksDivider">|</div>
+                    <div class="LinkColumn">
+                        
+
+
+
+
+
+<div class="FooterSiteFeedBack">
+    <a id="SiteFeedbackLinkOpener" href="javascript:void(0)">
+        <span class="FeedbackButton clip20x21" id="FeedbackButton">
+            <img id="feedBackImg" class="cl_footer_feedback_icon" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/ImageSprite.png" alt="Site Feedback">
+        </span>
+        Site Feedback
+    </a>
+    
+    <div id="SiteFeedbackLinkContainer" class="SiteFeedbackLinkContainer" style="display: none;">
+    <form id="siteFeedbackForm" method="post" action="http://technet.microsoft.com/en-us/library/feedback/add/cc546518(v=technet.10).aspx">
+        <div class="SiteFeedbackLinkTitleContainer">
+            <div class="SiteFeedbackLinkTitle">
+                Site Feedback
+            </div>
+            <div class="SiteFeedbackLinkCancel">
+                <a id="SiteFeedbackLinkCloser" href="javascript:void(0)">x</a>
+            </div>
+        </div>
+        <div class="SiteFeedbackLinkData">
+            <div class="SiteFeedbackLinkInfoText">
+                Tell us about your experience...
+            </div>
+            <div class="QuestionText">
+                Did the page load quickly?
+            </div>
+            <div class="AnswerText">
+                
+                <span>
+                    Yes<span>
+                        <input id="searchBox" name="searchBox" type="radio" value="1"></span></span>
+                
+                <span>
+                    No<span>
+                        <input id="searchBox" name="searchBox" type="radio" value="0"></span></span>
+                
+            </div>
+            <div class="QuestionText">
+                Do you like the page design?
+            </div>
+            <div class="AnswerText">
+                
+                <span>
+                    Yes<span>
+                        <input id="tabbedCode" name="tabbedCode" type="radio" value="1"></span></span>
+                
+                <span>
+                    No<span>
+                        <input id="tabbedCode" name="tabbedCode" type="radio" value="0"></span></span>
+                
+            </div>
+            <div class="QuestionText">
+                Tell us more
+            </div>
+            <div class="SiteFeedbackLinkTextAreaContainer">
+                <textarea id="feedbackText" data-maxlength="4000" name="feedbackText" cols="25" rows="5" class="SiteFeedbackLinkTextArea"></textarea>
+                
+                <textarea id="feedbackDescription" name="feedbackDescription" cols="25" rows="10" style="display: none;">Enter description here.</textarea>
+                <input type="hidden" id="feedbackPriority" name="feedbackPriority" value="">
+                <input type="hidden" id="feedbackSourceUrl" name="feedbackSourceUrl" value="">
+                <input type="hidden" id="ClientIP" name="ClientIP" value="">
+                <input type="hidden" id="ClientOS" name="ClientOS" value="">
+                <input type="hidden" id="ClientBrowser" name="ClientBrowser" value="">
+                <input type="hidden" id="ClientTime" name="ClientTime" value="">
+                <input type="hidden" id="ClientTimeZone" name="ClientTimeZone" value="">
+                
+            </div>
+            <div>
+                <input id="siteFeedbackSubmit" type="submit" value="Send" class="SiteFeedbackLinkSubmit">
+            </div>
+        </div>
+        <input type="hidden" id="returnUrl" name="returnUrl" value="http://technet.microsoft.com/en-us/library/cc546518.aspx">
+    <input name="__RequestVerificationToken" type="hidden" value="1ZDtSZjO-3lgd7v5WrupSWEhkqTmQFaG_3df5euHa78JUISUFnjIriP5uEu5Xy146o5eGCetE2g5GhETavMe6m11vR-oYDpWAvNTvT3mx2T5YLpjVdeaVmfZivuQ6ym-sZCbKQ2"></form>
+</div>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div id="Links2"></div>
+    </div>
+</div> 
+
+
+            <div class="footerPrintView">
+                <div class="footerCopyrightPrintView">© 2013 Microsoft. All rights reserved.</div>
+            </div>
+
+            
+            
+    
+    
+    <input id="tocPaddingPerLevel" type="hidden" value="17">
+
+
+        
+            <input id="MtpsDevice" type="hidden" value="Lightweight">
+
+
+<!--[CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]-->
+        
+            
+            
+            
+            
+            
+        
+
+
+
+
+
+<noscript>&lt;div&gt;&lt;img alt="DCSIMG" id="Img1" width="1" height="1" src="http://m.webtrends.com/dcsjwb9vb00000c932fd0rjc7_5p3t/njs.gif?dcsuri=/nojavascript&amp;amp;WT.js=No" /&gt;&lt;/div&gt;</noscript>
+
+
+
+
+
+
+
+
+
+<noscript>
+  &lt;a href="http://www.omniture.com" title="Web Analytics"&gt;
+    &lt;img src="//msstonojstechnet.112.2o7.net/b/ss/msstonojstechnet/1/H.20.2--NS/0" height="1" width="1" border="0" alt="" /&gt;
+  &lt;/a&gt;
+</noscript>
+
+
+
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" type="hidden" value="1ZDtSZjO-3lgd7v5WrupSWEhkqTmQFaG_3df5euHa78JUISUFnjIriP5uEu5Xy146o5eGCetE2g5GhETavMe6m11vR-oYDpWAvNTvT3mx2T5YLpjVdeaVmfZivuQ6ym-sZCbKQ2">
+</div>
+
+
+        </div>
+    <script type="text/javascript" class="mtps-injected">
+/*<![CDATA[*/
+(function(window,document){"use strict";function preload(scripts){for(var result=[],script,e,i=0;i<scripts.length;i++)script=scripts[i],script.hasOwnProperty("url")&&(e=document.createElement("script"),e.src=script.url,script.throwaway=e),result.push(script);return result}function inject(scripts,index){var script,elem;if(index>=scripts.length){delete mtps.injectScripts;return}script=scripts[index],elem=document.createElement("script"),elem.className="mtps-injected",elem.async=!1;var isLoaded=!1,timeoutId=0,injectNextFnName="",injectNext=elem.onerror=function(){isLoaded||(isLoaded=!0,inject(scripts,index+1),window.clearTimeout(timeoutId),elem.onload=elem.onerror=elem.onreadystatechange=null,injectNextFnName&&delete mtps[injectNextFnName],elem.removeEventListener&&elem.removeEventListener("load",injectNext,!1))};elem.addEventListener?elem.addEventListener("load",injectNext,!1):elem.readyState==="uninitialized"?elem.onreadystatechange=function(){(this.readyState==="loaded"||this.readyState==="complete")&&injectNext()}:elem.onload=injectNext,script.hasOwnProperty("url")?(timeoutId=window.setTimeout(injectNext,12e4),elem.src=script.url):(injectNextFnName="_injectNextScript_"+index,mtps[injectNextFnName]=injectNext,timeoutId=window.setTimeout(injectNext,2e3),elem.text="try {\n"+script.txt+"\n} finally { MTPS."+injectNextFnName+" && MTPS."+injectNextFnName+"(); }"),parent.appendChild(elem)}var mtps=window.MTPS||(window.MTPS={}),parent=document.getElementsByTagName("head")[0];mtps.injectScripts=function(scripts){inject(preload(scripts),0)}})(window,document);
+MTPS.injectScripts([
+	{ txt: "/**/\r\n(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { \r\n\t\"image\": \"http://i.technet.microsoft.com\", \r\n\t\"js\": \"http://i2.technet.microsoft.com\", \r\n\t\"css\": \"http://i3.technet.microsoft.com\"\r\n});\r\n/**/" },
+	{ url: "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js" },
+	{ txt: "//\n  var literalNormalizedUrl = \u0027/en-us/library/cc546518(d=default,l=en-us,v=technet.10).aspx\u0027;\n  var wt_nvr_ru = \u0027WT_NVR_RU\u0027;\n  var wt_fpcdom = \u0027.microsoft.com\u0027;\n  var wt_domlist = \u0027technet.microsoft.com\u0027;\n  var wt_pathlist = \u0027/technet/\u0027;\n  var wt_paramlist = \u0027DCSext.mtps_techcenter\u0027;\n  var wt_siteid = \u0027TECHNET\u0027;\n  var gDomain = \u0027m.webtrends.com\u0027;\n  var gDcsId = \u0027dcsjwb9vb00000c932fd0rjc7_5p3t\u0027;\n  var gFpc = \u0027WT_FPC\u0027;\n\n\n\n  if (document.cookie.indexOf(gFpc + \"=\") == -1) {\n    var wtidJs = document.createElement(\"script\");\n    wtidJs.src = \"//\" + gDomain + \"/\" + gDcsId + \"/wtid.js\";\n    document.getElementsByTagName(\"head\")[0].appendChild(wtidJs);\n  }\n\n\n\n  var detectedLocale = \u0027en-us\u0027;\n  var wtsp = \u0027_technet_library_mspress\u0027;\n  var gTrackEvents = \u00270\u0027;\n/**/" },
+	{ txt: "/**/\n  var omni_guid = \"e43ad535-8b03-47bc-8298-be3e631af345\";\n/**/" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:Utilities,0:Topic,1:webtrendsscript,2:omni_rsid_TechNet;/Areas/Epx/Content/Scripts:0,/Areas/Global/Content/Webtrends/resources:1,/Areas/Global/Content/Omniture/resources/TechNet:2\u0026amp;hashKey=35BF4EE0DD7E30901440BE9E9CE63DAC" },
+	{ txt: "var omnitureTracking = true;" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:megablade.1,1:SearchBox;/Areas/Epx/Themes/Shared/Content:0,/Areas/Epx/Themes/Base/Content:1\u0026amp;hashKey=82823761E41AA5A4D030043FB1671ACB" },
+	{ url: "http://i1.services.social.microsoft.com/search/Widgets/SearchBox.jss?boxid=HeaderSearchTextBox\u0026btnid=HeaderSearchButton\u0026brand=TechNet\u0026loc=en-us\u0026watermark=TechNet\u0026focusOnInit=false" },
+	{ url: "http://i2.technet.microsoft.com/Combined.js?resources=0:Header.1,1:Toc,1:NavigationResize,2:FeedbackCounter,2:Feedback,3:SiteFeedbackLink,3:CodeSnippet,3:TopicNotInScope,3:CollapsibleArea,3:VersionSelector,3:SurveyBroker;/Areas/Epx/Themes/TechNet/Content:0,/Areas/Epx/Library/Content:1,/Areas/Epx/Shared/Content:2,/Areas/Epx/Content/Scripts:3\u0026amp;hashKey=9329CE77D6B9AB2128552F95DF8E84EE" },
+	{ txt: "$(document).ready(function() {\n        try {\n            var token = $(\"#globalRequestVerification input[name=\u0027__RequestVerificationToken\u0027]\").clone();\n            $(\"#siteFeedbackForm\").append(token);\n        } catch(err) {\n            \n        }\n    });" }
+]);
+
+/*]]>*/
+</script>
+<script src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/broker-config.js"></script><div style="display: none;" id="_WEDCSInsertedData"><iframe id="_msnFrame" src="./Lesson 1  Understanding the Available Transaction Isolation Levels_files/c.gif" style="z-index:-1;height:1px;width:1px;display:none;visibility:hidden;" onload="javascript:MscomBeacon();"></iframe></div></body></html>
